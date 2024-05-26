@@ -24,34 +24,134 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 
+
 #LOGICAS API
 
 API_URL = "http://127.0.0.1:5000"
 
 
+@login_required
+def checkout(request):
+    carro_compras = CarroCompras.objects.get(usuario=request.user)
+    items = carro_compras.items.all()
+    
+    items_data = []
+    total_productos = 0
 
+    for item in items:
+        producto_detalles = obtener_detalles_producto(item.producto_id_api)
+        if producto_detalles:
+            precio = float(producto_detalles.get('precio', 0))
+            subtotal = precio * item.cantidad
+            total_productos += subtotal
+            items_data.append({
+                'producto': producto_detalles,
+                'cantidad': item.cantidad,
+                'subtotal': subtotal,
+                'id': item.producto_id_api
+            })
 
+    
+    total_final = total_productos 
+
+    # Obtener valor del dólar
+    respuesta = requests.get('https://mindicador.cl/api/dolar')
+    if respuesta.status_code == 200:
+        valor_usd = float(respuesta.json()['serie'][0]['valor'])
+        total_final_usd = total_final / valor_usd if valor_usd else 0
+    else:
+        valor_usd = 0
+        total_final_usd = 0
+
+    data = {
+        'items': items_data,
+        'total_productos': total_productos,
+        'total_final': total_final,
+        'total_final_usd': round(total_final_usd, 2)
+    }
+
+    if request.method == 'POST':
+        compra = Compra.objects.create(usuario=request.user, total=total_final)
+        for item in items:
+            CompraItem.objects.create(compra=compra, producto=item.producto, cantidad=item.cantidad)
+        carro_compras.items.clear()
+        messages.success(request, "¡Pago realizado correctamente!")
+        return redirect('order_history')
+
+    return render(request, 'core/checkout.html', data)
+
+def obtener_detalles_producto(producto_id_api):
+    url = f"http://127.0.0.1:5000/productos/{producto_id_api}"
+    response = requests.get(url)
+    
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return None
 @login_required
 def compra_confirm(request):
-    # Obtener los datos del carrito para el usuario actual
-    carrito_items = CarroItem.objects.filter(usuario=request.user)
+    try:
+        # Obtener el carrito de compras del usuario
+        carro_compras = CarroCompras.objects.get(usuario=request.user)
 
-    # Procesar los datos del carrito
-    for item in carrito_items:
-        producto_id_api = item.producto_id_api
-        cantidad = item.cantidad
-        
-        # Llamar a la función para actualizar el stock en la API
-        try:
-            actualizar_stock(producto_id_api, cantidad)
-        except Exception as e:
-            # Manejar cualquier error que pueda ocurrir durante la actualización del stock
-            print(f"Error al actualizar el stock para el producto {producto_id_api}: {e}")
-            # Puedes decidir qué hacer en caso de error, como registrar el error o enviar una respuesta al usuario
-        
-    # Aquí puedes renderizar la plantilla de confirmación de la compra
-    return render(request, 'core/compra_confirm.html')
+        # Calcular el total de la compra
+        total_compra = 0
+        items = carro_compras.items.all()
+        for item in items:
+            response = requests.get(f"{API_URL}/productos/{item.producto_id_api}")
+            if response.status_code == 200:
+                producto = response.json()
+                precio = float(producto.get('precio', 0))
+                cantidad = item.cantidad
+                subtotal = precio * cantidad
+                total_compra += subtotal
+            else:
+                print(f"Error al obtener producto {item.producto_id_api}")
 
+        # Crear una instancia de compra con el total calculado
+        compra = Compra.objects.create(usuario=request.user, total=total_compra)
+
+        # Procesar los elementos del carrito
+        for item in items:
+            producto_id_api = item.producto_id_api
+            cantidad = item.cantidad
+            
+            # Llamar a la función para actualizar el stock en la API
+            try:
+                actualizar_stock(producto_id_api, cantidad)
+            except Exception as e:
+                # Manejar cualquier error que pueda ocurrir durante la actualización del stock
+                print(f"Error al actualizar el stock para el producto {producto_id_api}: {e}")
+                # Puedes agregar un mensaje de error si lo deseas
+                messages.error(request, f"Error al actualizar el stock para el producto {producto_id_api}: {e}")
+
+            # Obtener los datos del producto de la API
+            response = requests.get(f"{API_URL}/productos/{producto_id_api}")
+            if response.status_code == 200:
+                producto = response.json()
+                # Guardar los datos del producto en la tabla CompraItem
+                compra_item = CompraItem.objects.create(
+                    compra=compra,
+                    carro_item=item
+                )
+            else:
+                print(f"No se pudo obtener información del producto {producto_id_api} de la API")
+                # Agregar mensaje de registro para indicar que no se pudo obtener información del producto
+
+            # Eliminar el elemento del carrito
+            item.delete()
+
+        # Eliminar el carrito después de la compra
+        carro_compras.delete()
+
+        # Redirigir al usuario a la página de inicio
+        return redirect('index')
+    except Exception as e:
+        # Manejar cualquier otra excepción que pueda ocurrir
+        print(f"Error al procesar la compra: {e}")
+        messages.error(request, "Ocurrió un error al procesar la compra. Por favor, inténtalo de nuevo más tarde.")
+        return redirect('index')  # Redirigir al usuario a la página de inicio en caso de error
+        
 def actualizar_stock(producto_id_api, cantidad):
     try:
         # Construir la URL de la API para actualizar el stock del producto
@@ -171,7 +271,7 @@ def cart(request):
         items = carro_compras.items.all()
     except CarroCompras.DoesNotExist:
         items = []
-    
+
     total = 0
     items_data = []
 
@@ -179,23 +279,39 @@ def cart(request):
         response = requests.get(f"{API_URL}/productos/{item.producto_id_api}")
         if response.status_code == 200:
             producto = response.json()
-            subtotal = producto['precio'] * item.cantidad
-            total += subtotal
-            items_data.append({
-                'producto': producto,
-                'cantidad': item.cantidad,
-                'subtotal': subtotal,
-                'id': item.producto_id_api
-            })
+            precio = float(producto.get('precio', 0))
+            cantidad = item.cantidad
 
-    respuesta = requests.get('https://mindicador.cl/api/dolar').json()
-    valor_usd = respuesta['serie'][0]['valor']
-    valor_total = total / valor_usd
+            if precio and cantidad:
+                subtotal = precio * cantidad
+                total += subtotal
+                items_data.append({
+                    'producto': producto,
+                    'cantidad': cantidad,
+                    'subtotal': subtotal,
+                    'id': item.producto_id_api
+                })
+            else:
+                print(f"Precio o cantidad no válidos para el producto {producto['nombre']}")
+        else:
+            print(f"Error al obtener producto {item.producto_id_api}")
+
+    # Obtener valor del dólar
+    respuesta = requests.get('https://mindicador.cl/api/dolar')
+    if respuesta.status_code == 200:
+        valor_usd = float(respuesta.json()['serie'][0]['valor'])
+        valor_total = total / valor_usd if valor_usd else 0
+    else:
+        valor_usd = 0
+        valor_total = 0
 
     data = {
-        'total': round(valor_total, 2),
+        'total': round(total, 2),
+        'total_usd': round(valor_total, 2),
         'items': items_data,
     }
+
+    print(f"Total en CLP: {total}, Total en USD: {valor_total}")
 
     return render(request, 'core/cart.html', data)
 
@@ -225,7 +341,8 @@ def cartadd(request, id):
 
     # No necesitas actualizar el stock del producto aquí, ya que eso se manejará en la API
 
-    return redirect('index')
+    # Redirigir al usuario a la página del carrito
+    return redirect('cart')
 
 
 def cartdel(request, id):
@@ -405,9 +522,7 @@ def category(request):
 		'listaProductos' : productosAll
 	}
 	return render(request, 'core/category.html', data)	
-		
-def checkout(request):
-	return render(request, 'core/checkout.html')		
+				
 						
 def confirmation(request):
 	return render(request, 'core/confirmation.html')
@@ -497,41 +612,7 @@ def registro(request):
 
 
 
-@login_required
-def checkout(request):
-    carro_compras = CarroCompras.objects.get(usuario=request.user)
-    items = carro_compras.items.all()
-    total = carro_compras.total()
 
-    total_productos = 0
-    for item in items:
-        total_productos += item.producto.precio * item.cantidad
-
-    valor_fijo = 7560
-    total_final = total_productos + valor_fijo
-
-    data = {
-        'items': items,
-        'total': total,
-        'total_final' : total_final
-    }
-
-    if request.method == 'POST':
-        # Crear la compra en la base de datos
-        compra = Compra.objects.create(usuario=request.user, total=total_final)
-
-        # Crear los elementos de compra asociados
-        for item in items:
-            CompraItem.objects.create(compra=compra, producto=item.producto, cantidad=item.cantidad)
-
-        # Limpiar el carrito de compras después de que la compra se haya completado con éxito
-        carro_compras.items.clear()
-
-        # Redirigir al usuario al historial de pedidos
-        messages.success(request, "¡Pago realizado correctamente!")
-        return redirect('order_history')
-
-    return render(request,'core/checkout.html',data)
     
 @login_required
 def confirmation(request):

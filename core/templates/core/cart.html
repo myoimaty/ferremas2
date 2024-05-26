@@ -63,8 +63,14 @@
                         <tr>
                             <td></td>
                             <td></td>
-                            <td><h5>Total</h5></td>
+                            <td><h5>Total en CLP</h5></td>
                             <td><h5>${{ total }}</h5></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td><h5>Total en USD</h5></td>
+                            <td><h5>${{ total_usd }}</h5></td>
                         </tr>
                         <tr class="shipping_area">
                             <td class="d-none d-md-block"></td>
@@ -78,7 +84,7 @@
                             <td></td>
                             <td>
                                 <div class="checkout_btn_inner d-flex align-items-center">
-                                    <a class="gray_btn" href="{% url 'category' %}">Seguir Comprando</a>
+                                    <a class="gray_btn" href="{% url 'checkout' %}">Ir a pagar</a>
                                     <div id="paypal-button-container"></div>
                                 </div>
                             </td>
@@ -93,59 +99,5 @@
 {% endblock %}
 
 {% block js %}
-<script src="https://www.paypalobjects.com/api/checkout.js"></script>
-<script>
-    paypal.Button.render({
-        env: 'sandbox',
-        client: {
-            sandbox: 'AUbyYWi5sLEJdpufwUULYJeSKjxSDesn86WTeir5R-0t0LpJLVD6UbeYprN2qGHgd5aOQLfzx3yDY292',
-            production: 'demo_production_client_id'
-        },
-        locale: 'es_CL',
-        style: {
-            size: 'large',
-            color: 'black',
-            shape: 'rect'
-        },
-        commit: true,
-        payment: function (data, actions) {
-            return actions.payment.create({
-                transactions: [{
-                    amount: {
-                        total: '{{ total }}',
-                        currency: 'USD'
-                    }
-                }]
-            });
-        },
-        onAuthorize: function (data, actions) {
-            return actions.payment.execute().then(function(){
-                // Redirige al usuario a la página de confirmación de compra
-                window.location.href = "{% url 'compra_confirmada' %}";
-            });
-        },
-        onCancel: function (data) {
-            Swal.fire({
-                title: 'Pago Cancelado',
-                text: 'El pago ha sido cancelado!',
-                icon: 'error',
-                showCancelButton: false,
-                confirmButtonColor: '#333CFF',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Aceptar'
-            });
-        },
-        onError: function (err) {
-            Swal.fire({
-                title: 'Error de pago',
-                text: 'Ha ocurrido un error con el pago!',
-                icon: 'error',
-                showCancelButton: false,
-                confirmButtonColor: '#333CFF',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Aceptar'
-            });
-        }
-    }, '#paypal-button-container');
-</script>
+
 {% endblock %}
