@@ -25,12 +25,7 @@
                         {% csrf_token %}
                         {{ form | crispy }}
                         
-                        <div class="col-md-12 form-group">
-                            <div class="creat_account">
-                                <input type="checkbox" id="f-option2" name="selector">
-                                <label for="f-option2">Mantener sesión iniciada</label>
-                            </div>
-                        </div>
+
                         <div class="col-md-12 form-group">
                             <input style="background-color: rgb(255, 217, 0);" type="submit" class="button button-login w-100" value="Ingresar">
                             <a href="{% url 'forgot_password' %}">¿Olvidó su contraseña?</a>

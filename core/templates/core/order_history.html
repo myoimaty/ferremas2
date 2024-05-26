@@ -30,7 +30,7 @@
     const fechas = document.querySelectorAll('.fecha');
     fechas.forEach(fecha => {
       const fechaOriginal = new Date(fecha.getAttribute('data-fecha'));
-      const fechaRestada = new Date(fechaOriginal.getTime() - 4 * 60 * 60 * 1000);
+      const fechaRestada = new Date(fechaOriginal.getTime() - 0 * 60 * 60 * 1000);
       fecha.textContent = fechaRestada.toLocaleString();
     });
   </script>
