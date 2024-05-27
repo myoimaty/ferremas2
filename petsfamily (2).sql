@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-05-2024 a las 03:57:06
+-- Tiempo de generación: 27-05-2024 a las 02:42:33
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.1.25
 
@@ -396,16 +396,17 @@ CREATE TABLE `auth_user` (
 --
 
 INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES
-(1, 'pbkdf2_sha256$216000$sIHtAFt5U8LT$81am4FFhswhzwP0Xy4iAo080YHqc2TjBs/kCy+ibfEE=', '2024-05-13 23:02:25.115226', 1, 'admin', '', '', 'mat.quezadap@duocuc.cl', 1, 1, '2023-06-07 13:20:58.000000'),
+(1, 'pbkdf2_sha256$216000$sIHtAFt5U8LT$81am4FFhswhzwP0Xy4iAo080YHqc2TjBs/kCy+ibfEE=', '2024-05-27 00:01:06.780587', 1, 'admin', '', '', 'mat.quezadap@duocuc.cl', 1, 1, '2023-06-07 13:20:58.000000'),
 (3, 'pbkdf2_sha256$216000$GdG2XYp9Z4gm$Q5LLN+j+1PSn8JdrDtbCyIwJhxZf+sUd3Km+oeFJJac=', '2023-07-11 02:38:58.025826', 0, 'cliente', '', '', '', 0, 1, '2023-06-16 14:12:08.000000'),
 (4, 'pbkdf2_sha256$216000$Xmrm88fTM7WL$bP2JoMQ6XdlPco/2dAyd5BfG4EVdv1JHAhPkKjSfK74=', '2023-06-26 02:29:14.862506', 0, 'vendedor', '', '', '', 0, 1, '2023-06-16 14:13:46.000000'),
 (5, 'pbkdf2_sha256$216000$iryMXhaq3wAJ$8jLv3nuu3e1DmGlF4xU2Dxtu2Yqe+htXIOIAx49SbeA=', '2023-06-26 02:29:47.707859', 0, 'administrador', '', '', '', 0, 1, '2023-06-16 14:14:57.000000'),
 (6, 'pbkdf2_sha256$216000$7PkGGf0qYkul$x82T/nhVfLU90z7VeMG5J/V0eLutM6wYGfSjCEXYOHI=', NULL, 0, 'suscriptor', '', '', '', 0, 1, '2023-06-25 21:37:48.000000'),
-(32, 'pbkdf2_sha256$216000$dZWuzPHyDC3M$TZtoSXyCIDCF3qZhdtXpF83xWA5Noa8MBz0AUQ17A8s=', NULL, 0, 'matias', '', '', 'matiasquezada01@gmail.com', 0, 1, '2024-05-13 21:30:06.208873'),
+(32, 'pbkdf2_sha256$216000$dZWuzPHyDC3M$TZtoSXyCIDCF3qZhdtXpF83xWA5Noa8MBz0AUQ17A8s=', '2024-05-27 00:02:51.670560', 0, 'matias', '', '', 'matiasquezada01@gmail.com', 0, 1, '2024-05-13 21:30:06.208873'),
 (33, 'pbkdf2_sha256$216000$TGq30fVCeb71$UY9ncbb4Plg2r2hyAsDQ4AfLSMghMR9c2t4CiLasWtw=', '2024-05-13 21:30:42.505979', 0, 'matias1', '', '', 'matiasquez01@gmail.com', 0, 1, '2024-05-13 21:30:29.201853'),
 (34, 'pbkdf2_sha256$216000$6clNxbPJdvAq$gcsYTOsL3MJQ6RffkhVLlhPBHPonxR8x3WdE2wO/KCM=', '2024-05-13 22:32:37.839209', 0, 'javier', '', '', 'julio@gmail.cl', 0, 1, '2024-05-13 21:36:08.769154'),
 (35, 'pbkdf2_sha256$216000$rRG6ZfjrB2RC$Eok8jot7sVi3BLIxvCIGa7swyC8ZtIzEalNiBnFcOSc=', '2024-05-13 23:14:50.258547', 0, 'mathias', '', '', 'matiasqueza1@gmail.com', 0, 1, '2024-05-13 23:14:29.574271'),
-(36, 'pbkdf2_sha256$216000$yzGIWOmfs4o8$gQThyUhWqwDPUSgCx+uusnyjO+O5DNAOeiVWEzkK8PM=', '2024-05-22 23:34:26.170856', 0, 'maty', '', '', 'mati.dominguez@duocuc.cl', 0, 1, '2024-05-22 23:34:07.307279');
+(36, 'pbkdf2_sha256$216000$yzGIWOmfs4o8$gQThyUhWqwDPUSgCx+uusnyjO+O5DNAOeiVWEzkK8PM=', '2024-05-26 22:29:52.891661', 0, 'maty', '', '', 'mati.dominguez@duocuc.cl', 0, 1, '2024-05-22 23:34:07.307279'),
+(37, 'pbkdf2_sha256$216000$zmEzAa7XVAcg$OJLYpwdE+l7FRsJLypumv022mHTnvrvKS0iq48vkJtc=', '2024-05-26 22:32:29.653573', 0, 'javier1', '', '', 'javier@gmail.com', 0, 1, '2024-05-26 22:31:11.464753');
 
 -- --------------------------------------------------------
 
@@ -431,7 +432,8 @@ INSERT INTO `auth_user_groups` (`id`, `user_id`, `group_id`) VALUES
 (26, 33, 1),
 (27, 34, 1),
 (28, 35, 1),
-(29, 36, 1);
+(29, 36, 1),
+(30, 37, 1);
 
 -- --------------------------------------------------------
 
@@ -452,10 +454,10 @@ CREATE TABLE `auth_user_user_permissions` (
 --
 
 CREATE TABLE `core_carrocompras` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL,
-  `compra_id` int(11) DEFAULT NULL,
+  `compra_id` bigint(20) DEFAULT NULL,
   `usuario_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -467,7 +469,7 @@ INSERT INTO `core_carrocompras` (`id`, `created_at`, `updated_at`, `compra_id`, 
 (2, '2023-06-16 14:20:46.143100', '2023-07-11 02:44:02.919109', NULL, 3),
 (3, '2023-06-25 21:32:16.087932', '2023-06-25 21:32:16.098011', NULL, 4),
 (5, '2024-05-13 21:39:52.449637', '2024-05-13 22:35:12.034467', NULL, 34),
-(6, '2024-05-22 23:34:28.730494', '2024-05-24 01:53:26.468668', NULL, 36);
+(14, '2024-05-26 23:28:09.280650', '2024-05-26 23:28:09.289165', NULL, 32);
 
 -- --------------------------------------------------------
 
@@ -477,8 +479,8 @@ INSERT INTO `core_carrocompras` (`id`, `created_at`, `updated_at`, `compra_id`, 
 
 CREATE TABLE `core_carrocompras_items` (
   `id` int(11) NOT NULL,
-  `carrocompras_id` int(11) NOT NULL,
-  `carroitem_id` int(11) NOT NULL
+  `carrocompras_id` bigint(20) NOT NULL,
+  `carroitem_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -487,7 +489,7 @@ CREATE TABLE `core_carrocompras_items` (
 
 INSERT INTO `core_carrocompras_items` (`id`, `carrocompras_id`, `carroitem_id`) VALUES
 (113, 5, 40),
-(133, 6, 47);
+(172, 14, 67);
 
 -- --------------------------------------------------------
 
@@ -496,7 +498,7 @@ INSERT INTO `core_carrocompras_items` (`id`, `carrocompras_id`, `carroitem_id`) 
 --
 
 CREATE TABLE `core_carroitem` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `cantidad` int(10) UNSIGNED NOT NULL CHECK (`cantidad` >= 0),
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL,
@@ -510,7 +512,7 @@ CREATE TABLE `core_carroitem` (
 
 INSERT INTO `core_carroitem` (`id`, `cantidad`, `created_at`, `updated_at`, `usuario_id`, `producto_id_api`) VALUES
 (40, 1, '2024-05-13 22:23:05.248270', '2024-05-13 22:35:18.757855', 34, '0'),
-(47, 1, '2024-05-24 01:53:18.124307', '2024-05-24 01:53:18.124307', 36, 'FER-82521');
+(67, 1, '2024-05-26 23:28:09.285651', '2024-05-26 23:28:09.285651', 32, 'FER-82521');
 
 -- --------------------------------------------------------
 
@@ -529,12 +531,20 @@ CREATE TABLE `core_cliente` (
 --
 
 CREATE TABLE `core_compra` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `fecha` datetime(6) NOT NULL,
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL,
-  `usuario_id` int(11) NOT NULL
+  `usuario_id` int(11) NOT NULL,
+  `total` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `core_compra`
+--
+
+INSERT INTO `core_compra` (`id`, `fecha`, `created_at`, `updated_at`, `usuario_id`, `total`) VALUES
+(10, '2024-05-27 00:39:42.926655', '2024-05-27 00:39:42.926655', '2024-05-27 00:39:42.926655', 36, 100.00);
 
 -- --------------------------------------------------------
 
@@ -543,11 +553,11 @@ CREATE TABLE `core_compra` (
 --
 
 CREATE TABLE `core_compraitem` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL,
-  `carro_item_id` int(11) NOT NULL,
-  `compra_id` int(11) NOT NULL
+  `carro_item_id` bigint(20) NOT NULL,
+  `compra_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -557,10 +567,10 @@ CREATE TABLE `core_compraitem` (
 --
 
 CREATE TABLE `core_entrega` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `fecha_entrega` datetime(6) NOT NULL,
   `entregado_por_id` int(11) NOT NULL,
-  `pedido_id` int(11) NOT NULL,
+  `pedido_id` bigint(20) NOT NULL,
   `recibido_por_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -571,7 +581,7 @@ CREATE TABLE `core_entrega` (
 --
 
 CREATE TABLE `core_orden` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `fecha_creacion` datetime(6) NOT NULL,
   `descripcion` longtext NOT NULL,
   `bodeguero_id` int(11) NOT NULL
@@ -584,7 +594,7 @@ CREATE TABLE `core_orden` (
 --
 
 CREATE TABLE `core_ordenb` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `descripcion` varchar(255) NOT NULL,
   `fecha_creacion` datetime(6) NOT NULL,
   `vendedor_id` int(11) NOT NULL
@@ -597,11 +607,11 @@ CREATE TABLE `core_ordenb` (
 --
 
 CREATE TABLE `core_pago` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `fecha_pago` datetime(6) NOT NULL,
   `estado` varchar(20) NOT NULL,
   `monto` decimal(10,2) NOT NULL,
-  `pedido_id` int(11) NOT NULL,
+  `pedido_id` bigint(20) NOT NULL,
   `usuario_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -612,7 +622,7 @@ CREATE TABLE `core_pago` (
 --
 
 CREATE TABLE `core_pedido` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `fecha_pedido` datetime(6) NOT NULL,
   `estado` varchar(20) NOT NULL,
   `total` decimal(10,2) NOT NULL,
@@ -850,7 +860,10 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (30, 'core', '0007_auto_20240518_2125', '2024-05-23 00:54:18.213604'),
 (31, 'core', '0008_auto_20240522_2054', '2024-05-23 00:54:18.273408'),
 (32, 'core', '0009_auto_20240523_2034', '2024-05-24 00:34:59.873167'),
-(33, 'core', '0010_auto_20240523_2054', '2024-05-24 00:54:12.257251');
+(33, 'core', '0010_auto_20240523_2054', '2024-05-24 00:54:12.257251'),
+(34, 'core', '0011_alter_carrocompras_id_alter_carroitem_id_and_more', '2024-05-26 03:27:57.937398'),
+(35, 'core', '0011_compra_total', '2024-05-26 23:01:03.045348'),
+(36, 'core', '0012_checkdata', '2024-05-26 23:52:34.812512');
 
 -- --------------------------------------------------------
 
@@ -877,7 +890,9 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 ('9ab3sib13qlpq669pe6slda8e4khwwzu', '.eJxVjDsOwjAQBe_iGlny7mJjSnrOYPmziwPIluKkQtwdIqWA9s3Me6kQ16WGdfAcpqLOCtThd0sxP7htoNxju3Wde1vmKelN0Tsd-toLPy-7-3dQ46jfmjhDtpKsL5ijtxZPBA5QMJExIHKE4lgcWeLCaJKDxOjFcWYRiur9Aey_OKU:1qJJG2:Boi2mnmgePvSWoZDuzH1iXBwzq0f0KaRIXpHchZwUCQ', '2023-07-25 19:42:46.135244'),
 ('017zwdmwgscysjqa139bu4d64gxgy994', '.eJxVjDsOwjAQBe_iGlny7mJjSnrOYPmziwPIluKkQtwdIqWA9s3Me6kQ16WGdfAcpqLOCtThd0sxP7htoNxju3Wde1vmKelN0Tsd-toLPy-7-3dQ46jfmjhDtpKsL5ijtxZPBA5QMJExIHKE4lgcWeLCaJKDxOjFcWYRiur9Aey_OKU:1qJK5W:_4umBukJjsQzvH1D7usMmtZsLw3EdGYUKQf82_yAA7c', '2023-07-25 20:35:58.091963'),
 ('85u15iupgbn7lq0c31763tg36paj72rl', '.eJxVjMsOwiAQRf-FtSFDeQgu3fcbyMAMUjU0Ke3K-O_apAvd3nPOfYmI21rj1nmJE4mL0FacfseE-cFtJ3THdptlntu6TEnuijxol-NM_Lwe7t9BxV6_NfiBUj6TA53JsFbGGWRAw8pmtKo4UBYDaGDyJmjtYCjoC2UmDobE-wMHjzhT:1s6esc:4Wouj2lKvsoPlAb9sgbWxGFRdsmOfYm8PHE0XQE6lkQ', '2024-05-27 23:14:50.261539'),
-('263gkp8tn56w8png03e25y4m2dzzzzaz', '.eJxVjMEOwiAQRP-FsyEQylI8evcbyHZ3kaqhSWlPjf9um_Sgx5n3ZjaVcF1KWpvMaWR1VQ7U5bcckF5SD8JPrI9J01SXeRz0oeiTNn2fWN630_07KNjKvkZvvedM2YAVAeociemAgzPkAHoyFvoQc2TJQCGyjxYsOgN5zy6qzxcNcjfy:1s9vTW:jRzkQuK5nNrXoDYFyFuNNPFGDGeS1EZl8Bx7lkrGfGs', '2024-06-05 23:34:26.171865');
+('263gkp8tn56w8png03e25y4m2dzzzzaz', '.eJxVjMEOwiAQRP-FsyEQylI8evcbyHZ3kaqhSWlPjf9um_Sgx5n3ZjaVcF1KWpvMaWR1VQ7U5bcckF5SD8JPrI9J01SXeRz0oeiTNn2fWN630_07KNjKvkZvvedM2YAVAeociemAgzPkAHoyFvoQc2TJQCGyjxYsOgN5zy6qzxcNcjfy:1sB53Q:aLdKryszDvtVuBLiju7sU7Ne0QgrWbsavjaHdLFh_kE', '2024-06-09 04:00:16.653289'),
+('6t6ue1tjps1270l4egsc6vqh2gu727dd', '.eJxVjMEOwiAQRP-FsyEQylI8evcbyHZ3kaqhSWlPjf9um_Sgx5n3ZjaVcF1KWpvMaWR1VQ7U5bcckF5SD8JPrI9J01SXeRz0oeiTNn2fWN630_07KNjKvkZvvedM2YAVAeociemAgzPkAHoyFvoQc2TJQCGyjxYsOgN5zy6qzxcNcjfy:1sBMNE:XaGzabp3SbswZAXbO-lJxeDybSIWAUJRyBqJVgO5Tmw', '2024-06-09 22:29:52.894675'),
+('o2ipcee4p9qz4u35a66v4uimn4r5vmj0', '.eJxVjMEOwiAQRP-FsyHIQqEevfsNhGUXqRqalPZk_Hdp0oNe5jDvzbxFiNtawtZ4CROJiwAnTr8lxvTkuhN6xHqfZZrrukwod0UetMnbTPy6Hu7fQYmt9LXNGhEJR4VsOHs7KKIRVErRG6M9254MzhvPSI5yJ4MCB-doLYAWny8rkTg2:1sBMPl:6xIKgIRCePCH4lPKEAwAjYJkabqfNKDVFZY7yI2JMkQ', '2024-06-09 22:32:29.656574');
 
 --
 -- Índices para tablas volcadas
@@ -985,8 +1000,8 @@ ALTER TABLE `core_compraitem`
 ALTER TABLE `core_entrega`
   ADD PRIMARY KEY (`id`),
   ADD KEY `core_entrega_entregado_por_id_94b1267c_fk_auth_user_id` (`entregado_por_id`),
-  ADD KEY `core_entrega_pedido_id_31283388_fk_core_pedido_id` (`pedido_id`),
-  ADD KEY `core_entrega_recibido_por_id_0f3ab077_fk_auth_user_id` (`recibido_por_id`);
+  ADD KEY `core_entrega_recibido_por_id_0f3ab077_fk_auth_user_id` (`recibido_por_id`),
+  ADD KEY `core_entrega_pedido_id_31283388_fk` (`pedido_id`);
 
 --
 -- Indices de la tabla `core_orden`
@@ -1007,8 +1022,8 @@ ALTER TABLE `core_ordenb`
 --
 ALTER TABLE `core_pago`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `core_pago_pedido_id_24c64bf7_fk_core_pedido_id` (`pedido_id`),
-  ADD KEY `core_pago_usuario_id_bec73968_fk_auth_user_id` (`usuario_id`);
+  ADD KEY `core_pago_usuario_id_bec73968_fk_auth_user_id` (`usuario_id`),
+  ADD KEY `core_pago_pedido_id_24c64bf7_fk` (`pedido_id`);
 
 --
 -- Indices de la tabla `core_pedido`
@@ -1090,13 +1105,13 @@ ALTER TABLE `auth_permission`
 -- AUTO_INCREMENT de la tabla `auth_user`
 --
 ALTER TABLE `auth_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT de la tabla `auth_user_groups`
 --
 ALTER TABLE `auth_user_groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `auth_user_user_permissions`
@@ -1108,61 +1123,61 @@ ALTER TABLE `auth_user_user_permissions`
 -- AUTO_INCREMENT de la tabla `core_carrocompras`
 --
 ALTER TABLE `core_carrocompras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `core_carrocompras_items`
 --
 ALTER TABLE `core_carrocompras_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=176;
 
 --
 -- AUTO_INCREMENT de la tabla `core_carroitem`
 --
 ALTER TABLE `core_carroitem`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT de la tabla `core_compra`
 --
 ALTER TABLE `core_compra`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `core_compraitem`
 --
 ALTER TABLE `core_compraitem`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `core_entrega`
 --
 ALTER TABLE `core_entrega`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `core_orden`
 --
 ALTER TABLE `core_orden`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `core_ordenb`
 --
 ALTER TABLE `core_ordenb`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `core_pago`
 --
 ALTER TABLE `core_pago`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `core_pedido`
 --
 ALTER TABLE `core_pedido`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `core_producto`
@@ -1198,7 +1213,7 @@ ALTER TABLE `django_content_type`
 -- AUTO_INCREMENT de la tabla `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- Restricciones para tablas volcadas
@@ -1235,15 +1250,15 @@ ALTER TABLE `auth_user_user_permissions`
 -- Filtros para la tabla `core_carrocompras`
 --
 ALTER TABLE `core_carrocompras`
-  ADD CONSTRAINT `core_carrocompras_compra_id_4247f6eb_fk_core_compra_id` FOREIGN KEY (`compra_id`) REFERENCES `core_compra` (`id`),
+  ADD CONSTRAINT `core_carrocompras_compra_id_4247f6eb_fk` FOREIGN KEY (`compra_id`) REFERENCES `core_compra` (`id`),
   ADD CONSTRAINT `core_carrocompras_usuario_id_1ac6a68f_fk_auth_user_id` FOREIGN KEY (`usuario_id`) REFERENCES `auth_user` (`id`);
 
 --
 -- Filtros para la tabla `core_carrocompras_items`
 --
 ALTER TABLE `core_carrocompras_items`
-  ADD CONSTRAINT `core_carrocompras_it_carrocompras_id_532a17c5_fk_core_carr` FOREIGN KEY (`carrocompras_id`) REFERENCES `core_carrocompras` (`id`),
-  ADD CONSTRAINT `core_carrocompras_it_carroitem_id_b2949f98_fk_core_carr` FOREIGN KEY (`carroitem_id`) REFERENCES `core_carroitem` (`id`);
+  ADD CONSTRAINT `core_carrocompras_items_carrocompras_id_532a17c5_fk` FOREIGN KEY (`carrocompras_id`) REFERENCES `core_carrocompras` (`id`),
+  ADD CONSTRAINT `core_carrocompras_items_carroitem_id_b2949f98_fk` FOREIGN KEY (`carroitem_id`) REFERENCES `core_carroitem` (`id`);
 
 --
 -- Filtros para la tabla `core_carroitem`
@@ -1267,15 +1282,15 @@ ALTER TABLE `core_compra`
 -- Filtros para la tabla `core_compraitem`
 --
 ALTER TABLE `core_compraitem`
-  ADD CONSTRAINT `core_compraitem_carro_item_id_e0dac575_fk_core_carroitem_id` FOREIGN KEY (`carro_item_id`) REFERENCES `core_carroitem` (`id`),
-  ADD CONSTRAINT `core_compraitem_compra_id_332505f6_fk_core_compra_id` FOREIGN KEY (`compra_id`) REFERENCES `core_compra` (`id`);
+  ADD CONSTRAINT `core_compraitem_carro_item_id_e0dac575_fk` FOREIGN KEY (`carro_item_id`) REFERENCES `core_carroitem` (`id`),
+  ADD CONSTRAINT `core_compraitem_compra_id_332505f6_fk` FOREIGN KEY (`compra_id`) REFERENCES `core_compra` (`id`);
 
 --
 -- Filtros para la tabla `core_entrega`
 --
 ALTER TABLE `core_entrega`
   ADD CONSTRAINT `core_entrega_entregado_por_id_94b1267c_fk_auth_user_id` FOREIGN KEY (`entregado_por_id`) REFERENCES `auth_user` (`id`),
-  ADD CONSTRAINT `core_entrega_pedido_id_31283388_fk_core_pedido_id` FOREIGN KEY (`pedido_id`) REFERENCES `core_pedido` (`id`),
+  ADD CONSTRAINT `core_entrega_pedido_id_31283388_fk` FOREIGN KEY (`pedido_id`) REFERENCES `core_pedido` (`id`),
   ADD CONSTRAINT `core_entrega_recibido_por_id_0f3ab077_fk_auth_user_id` FOREIGN KEY (`recibido_por_id`) REFERENCES `auth_user` (`id`);
 
 --
@@ -1294,7 +1309,7 @@ ALTER TABLE `core_ordenb`
 -- Filtros para la tabla `core_pago`
 --
 ALTER TABLE `core_pago`
-  ADD CONSTRAINT `core_pago_pedido_id_24c64bf7_fk_core_pedido_id` FOREIGN KEY (`pedido_id`) REFERENCES `core_pedido` (`id`),
+  ADD CONSTRAINT `core_pago_pedido_id_24c64bf7_fk` FOREIGN KEY (`pedido_id`) REFERENCES `core_pedido` (`id`),
   ADD CONSTRAINT `core_pago_usuario_id_bec73968_fk_auth_user_id` FOREIGN KEY (`usuario_id`) REFERENCES `auth_user` (`id`);
 
 --
