@@ -1,5 +1,9 @@
 {% extends 'core/base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
+
+{% block css %}
+{% endblock %}
 {% block contenido %}
 <!DOCTYPE html>
 <html lang="en">
@@ -18,9 +22,14 @@
   
   <link rel = "stylesheet" href="{%static 'core/css/open ' %}">
   <style>
-    #transferButton {
-        display: none;
-    }
+#transferButton {
+    color: white;
+    background-color: blue;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -56,7 +65,11 @@
             <div class="row">
                 <div class="col-lg-8">
                     <h3>Detalles de facturación</h3>
-                    <form class="row contact_form" action="#" method="post" novalidate="novalidate">
+                    <!--<form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" class="btn btn-success" value="Aceptar">
+                    </form>--><form class="row contact_form" action="#" method="post" novalidate="novalidate">
                         <div class="col-md-6 form-group p_star">
                             <input type="text" class="form-control" id="first" name="name" placeholder="nombre">
                             <span class="placeholder" data-placeholder="First name"></span>
@@ -72,18 +85,35 @@
                         </div>
                         <div class="col-md-12 form-group p_star">
                             <select class="country_select">
-                                <option value="1">Region</option>
-                                <option value="2">Region</option>
-                                <option value="4">Region</option>
+                                <option value="0">Región</option>
+                                <option value="1">Región de Arica y Parinacota</option>
+                                <option value="2">Región de Tarapacá</option>
+                                <option value="3">Región de Antofagasta</option>
+                                <option value="4">Región de Atacama</option>
+                                <option value="5">Región de Coquimbo</option>
+                                <option value="6">Región de Valparaiso</option>
+                                <option value="7">Región de Metropolitana</option>
+                                <option value="8">Región de O'Higgins</option>
+                                <option value="9">Región de Maule</option>
+                                <option value="10">Región de Ñuble</option>
+                                <option value="11">Región de Biobio</option>
+                                <option value="12">Región de La Araucania</option>
+                                <option value="13">Región de Los Rios</option>
+                                <option value="14">Región de Los Lagos</option>
+                                <option value="15">Región de Aysen</option>
+                                <option value="16">Región de Magallanes</option>
+
                             </select>
                         </div>
                         <div class="col-md-12 form-group">
                             <input type="text" class="form-control" id="zip" name="zip" placeholder="Codigo Postal">
                         </div>
 
-                       
+                        
                     </form>
+                    
                 </div>
+
                 <div class="col-lg-4">
                     <div class="order_box">
                         <h2>Tu Pedido</h2>
@@ -115,7 +145,7 @@
                                 <div class="check"></div>
                             </div>
                         </div>
-                        <button id="transferButton">Realizar transferencia</button>
+                        <button style="color: aliceblue;" style="background-color: black;" id="transferButton">Realizar transferencia</button>
                         <div>
                             <div>
                                 <label for="f-option6">Paypal </label>
@@ -132,6 +162,9 @@
             </div>
         </div>
     </div>
+
+
+    
   </section>
   <!--================End Checkout Area =================-->
 

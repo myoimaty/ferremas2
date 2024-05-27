@@ -30,6 +30,18 @@ from django.http import HttpResponse
 API_URL = "http://127.0.0.1:5000"
 
 
+def checkdata(request):
+    if request.method == 'POST':
+        form = Checkdata(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('core/checkout')  # Redirige a una página de éxito
+    else:
+        form = Checkdata()
+    
+    return render(request, 'core/checkout.html', {'form': form})
+
+
 @login_required
 def checkout(request):
     carro_compras = CarroCompras.objects.get(usuario=request.user)
@@ -62,6 +74,7 @@ def checkout(request):
     else:
         valor_usd = 0
         total_final_usd = 0
+
 
     data = {
         'items': items_data,

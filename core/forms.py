@@ -77,4 +77,7 @@ class CustomUserCreationForm(UserCreationForm):
         )
         return user
     
-    
+    class checkdata(forms.ModelForm):
+        class Meta:
+            model = Checkdata
+            fields = ['first_name', 'last_name', 'address1', 'region', 'zip_code']

@@ -161,3 +161,34 @@ class OrdenB(models.Model):
 
     def __str__(self):
         return f'Orden {self.id} - Vendedor: {self.vendedor.username}'  
+
+
+class Checkdata(models.Model):
+    REGIONS = [
+        ('0', 'Región'),
+        ('1', 'Región de Arica y Parinacota'),
+        ('2', 'Región de Tarapacá'),
+        ('3', 'Región de Antofagasta'),
+        ('4', 'Región de Atacama'),
+        ('5', 'Región de Coquimbo'),
+        ('6', 'Región de Valparaiso'),
+        ('7', 'Región de Metropolitana'),
+        ('8', 'Región de O\'Higgins'),
+        ('9', 'Región de Maule'),
+        ('10', 'Región de Ñuble'),
+        ('11', 'Región de Biobio'),
+        ('12', 'Región de La Araucania'),
+        ('13', 'Región de Los Rios'),
+        ('14', 'Región de Los Lagos'),
+        ('15', 'Región de Aysen'),
+        ('16', 'Región de Magallanes'),
+    ]
+    
+    first_name = models.CharField(max_length=100, verbose_name="Nombre")
+    last_name = models.CharField(max_length=100, verbose_name="Apellido")
+    address1 = models.CharField(max_length=255, verbose_name="Dirección 1")
+    region = models.CharField(max_length=2, choices=REGIONS, verbose_name="Región")
+    zip_code = models.CharField(max_length=20, verbose_name="Código Postal")
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
