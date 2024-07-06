@@ -529,9 +529,38 @@ def blog(request):
 	return render(request, 'core/blog.html')
 
 
-def confirmar_pagos(request):
-	return render(request, 'core/confirmar_pagos')
+def transferencia_bancaria(request):
+    if request.method == 'POST':
+        # Obtener el archivo de comprobante de transferencia desde el formulario
+        comprobante_transferencia = request.FILES.get('comprobante_transferencia')
 
+        # Obtener el carrito de compras del usuario
+        carro_compras = CarroCompras.objects.get(usuario=request.user)
+        
+        # Calcular el total de la compra
+        total_compra = 0
+        items = carro_compras.items.all()
+        for item in items:
+            producto_detalles = obtener_detalles_producto(item.producto_id_api)
+            if producto_detalles:
+                precio = float(producto_detalles.get('precio', 0))
+                subtotal = precio * item.cantidad
+                total_compra += subtotal
+
+        # Crear un nuevo pedido con el comprobante de transferencia y el total calculado
+        pedido = Pedido.objects.create(
+            usuario=request.user,
+            total=total_compra,
+            comprobante_transferencia=comprobante_transferencia
+        )
+
+        # Limpiar el carrito después de crear el pedido
+        carro_compras.delete()
+
+        messages.success(request, "¡Comprobante de transferencia bancaria enviado correctamente!")
+        return redirect('index')  # Redirige a donde desees después de subir el comprobante
+
+    return render(request, 'core/transferencia_bancaria.html')
 
 def ReportesVentas(request):
     # Obtener datos de ventas mensuales (ejemplo: ventas de este mes)
@@ -595,7 +624,31 @@ def category(request):
 				
 						
 def confirmation(request):
-	return render(request, 'core/confirmation.html')
+    # Obtener todos los pedidos que tienen un comprobante de transferencia bancaria adjunto
+    pedidos = Pedido.objects.exclude(comprobante_transferencia='').order_by('-fecha_pedido')
+
+    if request.method == 'POST':
+        # Procesar el formulario para cambiar el estado del pedido
+        pedido_id = request.POST.get('pedido_id')
+        estado_pedido = request.POST.get('estado_pedido')
+
+        try:
+            pedido = Pedido.objects.get(id=pedido_id)
+            pedido.estado = estado_pedido
+            pedido.save()
+            messages.success(request, f"Estado del pedido #{pedido_id} actualizado correctamente a {estado_pedido}.")
+        except Pedido.DoesNotExist:
+            messages.error(request, f"El pedido con ID {pedido_id} no existe.")
+        except Exception as e:
+            messages.error(request, f"Ocurrió un error al actualizar el estado del pedido: {str(e)}")
+
+        return redirect('confirmation')  # Redirige nuevamente a la página de confirmación después de procesar el formulario
+
+    context = {
+        'pedidos': pedidos,
+    }
+
+    return render(request, 'core/confirmation.html', context)
 
 def contact(request):
 	return render(request, 'core/contact.html')
@@ -684,10 +737,6 @@ def registro(request):
 
 
     
-@login_required
-def confirmation(request):
-    compras = Compra.objects.filter(usuario=request.user)
-    return render(request, 'core/confirmation.html', {'compras': compras})
 
 @login_required
 def order_history(request):

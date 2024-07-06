@@ -1,18 +1,55 @@
 {% extends 'core/base.html' %}
+{% load static %}
+
 {% block contenido %}
-    <h2>Confirmación de Pedido</h2>
-    {% if compras %}
-        <ul>
-            {% for compra in compras %}
-                <li>
-                    <h3>Número de Pedido: {{ compra.id }}</h3>
-                    <p>Total: ${{ compra.total }}</p>
-                    <p>Fecha: {{ compra.fecha }}</p>
-                    <!-- Aquí puedes mostrar más detalles si lo deseas -->
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No hay pedidos realizados.</p>
-    {% endif %}
+<div class="container mt-5">
+    <h2 class="mb-4">Confirmación de Transferencias Bancarias</h2>
+    
+    <div class="row">
+        {% for pedido in pedidos %}
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5 class="card-title">Pedido #{{ pedido.id }}</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Usuario:</strong> {{ pedido.usuario.username }}</p>
+                    <p><strong>Total:</strong> ${{ pedido.total }}</p>
+                    <p><strong>Fecha de pedido:</strong> {{ pedido.fecha_pedido }}</p>
+                    <p><strong>Estado:</strong>
+                        <span class="badge {% if pedido.estado == 'pendiente' %}badge-warning{% elif pedido.estado == 'aprobado' %}badge-success
+                        {% elif pedido.estado == 'en_proceso' %}badge-success
+                        {% elif pedido.estado == 'completado' %}badge-success
+                        {% elif pedido.estado == 'cancelado' %}badge-danger
+                        {% elif pedido.estado == 'rechazado' %}badge-danger
+                        {% else %}badge-secondary{% endif %}">
+                            {{ pedido.estado }}
+                        </span>
+                    </p>
+                    <p><strong>Comprobante de Transferencia:</strong></p>
+                    {% if pedido.comprobante_transferencia %}
+                    <a href="{{ pedido.comprobante_transferencia.url }}" target="_blank" rel="noopener noreferrer">Ver Comprobante</a>
+                    {% else %}
+                    <p>No hay comprobante de transferencia adjunto.</p>
+                    {% endif %}
+                    <form action="{% url 'confirmation' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="pedido_id" value="{{ pedido.id }}">
+                        <div class="form-group">
+                            <label for="estado_pedido">Cambiar Estado:</label>
+                            <select name="estado_pedido" id="estado_pedido" class="form-control">
+                                <option value="pendiente" {% if pedido.estado == 'pendiente' %}selected{% endif %}>Pendiente</option>
+                                <option value="aprobado" {% if pedido.estado == 'aprobado' %}selected{% endif %}>Aprobado</option>
+                                <option value="rechazado" {% if pedido.estado == 'rechazado' %}selected{% endif %}>Rechazado</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar Estado</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+</div>
 {% endblock %}

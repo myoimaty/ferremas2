@@ -99,7 +99,7 @@
               <a href="{% url 'preparar_pedidos' %}" class="button">Preparar Pedidos</a>
           {% endif %}
           {% if roles.is_contador %}
-              <a href="{% url 'confirmar_pagos' %}" class="button">Confirmar Pagos</a>
+              <a href="{% url 'confirmation' %}" class="button">Confirmar Pagos</a>
               <a href="{% url 'registrar_entregas' %}" class="button">Registrar Entregas</a>
               <a href="{% url 'ReportesVentas' %}" class="button">Reportes de ventas</a>
               {% endif %}

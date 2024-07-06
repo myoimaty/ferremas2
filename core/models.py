@@ -100,6 +100,8 @@ class Pedido(models.Model):
     fecha_pedido = models.DateTimeField(auto_now_add=True)
     estado = models.CharField(max_length=20, choices=ESTADO_CHOICES, default='pendiente')
     total = models.DecimalField(max_digits=10, decimal_places=2)
+    # Campo para comprobante de transferencia bancaria (opcional)
+    comprobante_transferencia = models.ImageField(upload_to='core/img/comprobante/', blank=True, null=True)
 
     def __str__(self):
         return f'Pedido {self.id} - {self.usuario.username}'

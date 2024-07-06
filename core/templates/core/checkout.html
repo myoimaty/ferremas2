@@ -134,16 +134,11 @@
                 <a href="#">Términos y condiciones*</a>
               </div>
               <div class="payment_item">
-                <div class="radion_btn">
-                  <input type="radio" id="f-option5" name="selector">
-                  <label for="f-option5">Transferencia</label>
-                  <div class="check"></div>
-                </div>
               </div>
-              <button style="color: aliceblue; background-color: black;" id="transferButton">Realizar transferencia</button>
+              <button onclick="window.location.href = '{% url 'transferencia_bancaria' %}'" style="color: aliceblue; background-color: black;">Pagar con Transferencia Bancaria</button>
               <div>
                 <div>
-                  <label for="f-option6">Paypal </label>
+
                   <img src="img/product/card.jpg" alt="">
                   <div class="check"></div>
                 </div>

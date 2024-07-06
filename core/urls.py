@@ -75,5 +75,6 @@ urlpatterns = [
     path('ordenar_pedidos/', ordenar_pedidos, name='ordenar_pedidos'),
     path('ordenes_pedidos/', ordenes_pedidos, name='ordenes_pedidos'),
     path('ReportesVentas/', ReportesVentas, name='ReportesVentas'),
+    path('transferencia_bancaria/', transferencia_bancaria, name='transferencia_bancaria'),
 ]
 
