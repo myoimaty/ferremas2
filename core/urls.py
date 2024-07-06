@@ -63,6 +63,7 @@ urlpatterns = [
 
     path('productos_bodega/', productos_bodega, name='productos_bodega'),
     path('gestionar_pedidos/', gestionar_pedidos, name='gestionar_pedidos'),
+    path('actualizar_pedido/<int:pedido_id>/', actualizar_pedido, name='actualizar_pedido'),
     path('ordenes_pedidos/', ordenes_pedidos, name='ordenes_pedidos'),
     path('preparar_pedidos/', preparar_pedidos, name='preparar_pedidos'),
     path('ordenar_pedidos/', ordenar_pedidos, name='ordenar_pedidos'),
@@ -73,5 +74,6 @@ urlpatterns = [
     path('rechazar-pedido/<int:pedido_id>/', rechazar_pedido, name='rechazar_pedido'),
     path('ordenar_pedidos/', ordenar_pedidos, name='ordenar_pedidos'),
     path('ordenes_pedidos/', ordenes_pedidos, name='ordenes_pedidos'),
+    path('ReportesVentas/', ReportesVentas, name='ReportesVentas'),
 ]
 

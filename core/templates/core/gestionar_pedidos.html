@@ -25,13 +25,15 @@
                 <td>{{ pedido.estado }}</td>
                 <td>{{ pedido.total }}</td>
                 <td>
-                    <form action="{% url 'aceptar_pedido' pedido.id %}" method="post" style="display: inline;">
+                    <form action="{% url 'actualizar_pedido' pedido.id %}" method="post" style="display: inline;">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-success">Aceptar</button>
-                    </form>
-                    <form action="{% url 'rechazar_pedido' pedido.id %}" method="post" style="display: inline;">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-danger">Rechazar</button>
+                        <select name="estado" class="form-control">
+                            <option value="pendiente" {% if pedido.estado == 'pendiente' %}selected{% endif %}>Pendiente</option>
+                            <option value="en_proceso" {% if pedido.estado == 'en_proceso' %}selected{% endif %}>En proceso</option>
+                            <option value="completado" {% if pedido.estado == 'completado' %}selected{% endif %}>Completado</option>
+                            <option value="cancelado" {% if pedido.estado == 'cancelado' %}selected{% endif %}>Cancelado</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
                     </form>
                 </td>
             </tr>

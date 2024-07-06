@@ -9,15 +9,17 @@
           <tr>
             <th scope="col">ID</th>
             <th scope="col">Fecha</th>
+            <th scope="col">Estado</th>
             <th scope="col">Total</th>
           </tr>
         </thead>
         <tbody>
-          {% for compra in compras %}
+          {% for pedido in pedidos %}
           <tr>
-            <td>{{ compra.id }}</td>
-            <td><span class="fecha" data-fecha="{{ compra.fecha|date:'c' }}"></span></td>
-            <td>${{ compra.total }}</td>
+            <td>{{ pedido.id }}</td>
+            <td><span class="fecha" data-fecha="{{ pedido.fecha_pedido|date:'c' }}"></span></td>
+            <td>{{ pedido.estado }}</td>
+            <td>${{ pedido.total }}</td>
           </tr>
           {% endfor %}
         </tbody>

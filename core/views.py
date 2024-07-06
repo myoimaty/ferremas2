@@ -20,9 +20,12 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
+from django.utils.timezone import make_aware, utc
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.models import User
 from django.http import HttpResponse
+from openpyxl import Workbook
+from datetime import datetime
 
 
 #LOGICAS API
@@ -84,10 +87,20 @@ def checkout(request):
     }
 
     if request.method == 'POST':
+        # Crear la compra
         compra = Compra.objects.create(usuario=request.user, total=total_final)
         for item in items:
             CompraItem.objects.create(compra=compra, producto=item.producto, cantidad=item.cantidad)
+        
+        # Crear el pedido
+        Pedido = Pedido.objects.create(
+            usuario=request.user,
+            total=total_final,
+            estado='pendiente'  # O cualquier otro estado inicial que desees
+        )
+
         carro_compras.items.clear()
+
         messages.success(request, "¡Pago realizado correctamente!")
         return redirect('order_history')
 
@@ -124,10 +137,17 @@ def compra_confirm(request):
         # Crear una instancia de compra con el total calculado
         compra = Compra.objects.create(usuario=request.user, total=total_compra)
 
+        # Crear una instancia de pedido con los datos necesarios
+        pedido = Pedido.objects.create(
+            usuario=request.user,
+            total=total_compra
+        )
+
         # Procesar los elementos del carrito
         for item in items:
             producto_id_api = item.producto_id_api
             cantidad = item.cantidad
+            
             
             # Llamar a la función para actualizar el stock en la API
             try:
@@ -164,6 +184,8 @@ def compra_confirm(request):
         print(f"Error al procesar la compra: {e}")
         messages.error(request, "Ocurrió un error al procesar la compra. Por favor, inténtalo de nuevo más tarde.")
         return redirect('index')  # Redirigir al usuario a la página de inicio en caso de error
+    
+
         
 def actualizar_stock(producto_id_api, cantidad):
     try:
@@ -511,6 +533,41 @@ def confirmar_pagos(request):
 	return render(request, 'core/confirmar_pagos')
 
 
+def ReportesVentas(request):
+    # Obtener datos de ventas mensuales (ejemplo: ventas de este mes)
+    today = datetime.today()
+    start_date = today.replace(day=1)  # Primer día del mes actual
+    end_date = today.replace(day=1, month=today.month % 12 + 1)  # Primer día del próximo mes
+
+    # Filtrar pedidos por fecha dentro del rango del mes actual
+    pedidos = Pedido.objects.filter(fecha_pedido__gte=start_date, fecha_pedido__lt=end_date)
+
+    # Crear un libro de trabajo y una hoja
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Reporte de Ventas"
+
+    # Escribir encabezados
+    ws.append(['ID', 'Usuario', 'Fecha', 'Total'])
+
+    # Escribir datos de los pedidos
+    for pedido in pedidos:
+        # Convertir fecha_pedido a formato de cadena sin zona horaria
+        fecha_formateada = pedido.fecha_pedido.strftime('%Y-%m-%d %H:%M:%S')
+
+        # Escribir fila en Excel
+        ws.append([pedido.id, pedido.usuario.username, fecha_formateada, pedido.total])
+
+    # Generar nombre de archivo
+    filename = f'reporte_ventas_{today.strftime("%Y-%m")}.xlsx'
+
+    # Guardar el libro de trabajo en un HttpResponse
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = f'attachment; filename="{filename}"'
+    wb.save(response)
+
+    return response
+
 #def cart(request):
     
    #carro_compras = CarroCompras.objects.get(usuario=request.user)
@@ -634,8 +691,8 @@ def confirmation(request):
 
 @login_required
 def order_history(request):
-    compras = Compra.objects.filter(usuario=request.user)
-    return render(request, 'core/order_history.html', {'compras': compras})
+    pedidos = Pedido.objects.filter(usuario=request.user).order_by('-fecha_pedido')
+    return render(request, 'core/order_history.html', {'pedidos': pedidos})
 
 
 
@@ -760,8 +817,15 @@ def productos_bodega(request):
 @login_required
 @user_passes_test(lambda u: u.groups.filter(name='vendedor').exists())
 def gestionar_pedidos(request):
-    pedidos = Pedido.objects.all()
+    # Obtener todos los pedidos ordenados por fecha de pedido descendente
+    pedidos = Pedido.objects.all().order_by('-fecha_pedido')
+    
+    # Si solo quieres los pedidos relacionados con el usuario logueado como vendedor,
+    # puedes ajustar el filtro según la lógica de tu aplicación. Por ejemplo:
+    # pedidos = Pedido.objects.filter(vendedor=request.user).order_by('-fecha_pedido')
+    
     return render(request, 'core/gestionar_pedidos.html', {'pedidos': pedidos})
+
 
 @login_required
 @user_passes_test(lambda u: u.groups.filter(name='vendedor').exists())
@@ -832,6 +896,20 @@ def rechazar_pedido(request, pedido_id):
     pedido = Pedido.objects.get(pk=pedido_id)
     pedido.estado = 'cancelado'
     pedido.save()
+    return redirect('gestionar_pedidos')
+
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name='vendedor').exists())
+def actualizar_pedido(request, pedido_id):
+    if request.method == 'POST':
+        pedido = get_object_or_404(Pedido, id=pedido_id)
+        nuevo_estado = request.POST.get('estado')
+        if nuevo_estado in dict(Pedido.ESTADO_CHOICES):
+            pedido.estado = nuevo_estado
+            pedido.save()
+            messages.success(request, "¡Estado del pedido actualizado correctamente!")
+        else:
+            messages.error(request, "Estado no válido.")
     return redirect('gestionar_pedidos')
 
 def ordenar_pedidos(request):

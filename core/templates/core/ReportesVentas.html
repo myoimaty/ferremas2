@@ -1,0 +1,12 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block contenido %}
+<div class="container mt-5">
+    <h2>Reporte de Ventas Mensuales</h2>
+    <p>Descarga un archivo Excel con el reporte de ventas del mes actual.</p>
+    <div class="text-center">
+        <a href="{% url 'reporte_ventas' %}" class="btn btn-primary">Descargar Reporte</a>
+    </div>
+</div>
+{% endblock %}
