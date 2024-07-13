@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-07-2024 a las 03:44:26
+-- Tiempo de generación: 14-07-2024 a las 00:23:10
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -597,6 +597,115 @@ CREATE TABLE `core_compraitem` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `core_entrega`
+--
+
+CREATE TABLE `core_entrega` (
+  `id` bigint(20) NOT NULL,
+  `fecha_entrega` datetime(6) NOT NULL,
+  `entregado_por_id` int(11) NOT NULL,
+  `pedido_id` bigint(20) NOT NULL,
+  `recibido_por_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `core_orden`
+--
+
+CREATE TABLE `core_orden` (
+  `id` bigint(20) NOT NULL,
+  `fecha_creacion` datetime(6) NOT NULL,
+  `descripcion` longtext NOT NULL,
+  `bodeguero_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `core_orden`
+--
+
+INSERT INTO `core_orden` (`id`, `fecha_creacion`, `descripcion`, `bodeguero_id`) VALUES
+(1, '2024-06-20 01:03:33.907352', '', 38),
+(2, '2024-06-20 01:03:41.304119', '', 38),
+(3, '2024-07-12 01:15:42.446641', '', 38);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `core_ordenb`
+--
+
+CREATE TABLE `core_ordenb` (
+  `id` bigint(20) NOT NULL,
+  `descripcion` varchar(255) NOT NULL,
+  `fecha_creacion` datetime(6) NOT NULL,
+  `vendedor_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `core_ordenb`
+--
+
+INSERT INTO `core_ordenb` (`id`, `descripcion`, `fecha_creacion`, `vendedor_id`) VALUES
+(1, '', '2024-06-20 01:03:54.699921', 4),
+(2, '', '2024-07-12 01:16:29.487312', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `core_pago`
+--
+
+CREATE TABLE `core_pago` (
+  `id` bigint(20) NOT NULL,
+  `fecha_pago` datetime(6) NOT NULL,
+  `estado` varchar(20) NOT NULL,
+  `monto` decimal(10,2) NOT NULL,
+  `pedido_id` bigint(20) NOT NULL,
+  `usuario_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `core_pedido`
+--
+
+CREATE TABLE `core_pedido` (
+  `id` bigint(20) NOT NULL,
+  `fecha_pedido` datetime(6) NOT NULL,
+  `estado` varchar(20) NOT NULL,
+  `total` decimal(10,2) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `comprobante_transferencia` varchar(100) DEFAULT NULL,
+  `direccion_envio` varchar(255) DEFAULT NULL,
+  `numero_casa` varchar(255) DEFAULT NULL,
+  `region` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `core_pedido`
+--
+
+INSERT INTO `core_pedido` (`id`, `fecha_pedido`, `estado`, `total`, `usuario_id`, `comprobante_transferencia`, `direccion_envio`, `numero_casa`, `region`) VALUES
+(6, '2024-07-06 04:59:30.819609', 'pendiente', 30.00, 36, 'core/img/comprobante/gohan2_em5VODp.jpg', NULL, NULL, NULL),
+(7, '2024-07-06 05:14:15.013307', 'aprobado', 60.00, 36, 'core/img/comprobante/lorea.jpg', NULL, NULL, NULL),
+(8, '2024-07-06 06:10:03.885655', 'pendiente', 100.00, 36, '', NULL, NULL, NULL),
+(9, '2024-07-06 06:10:57.509192', 'pendiente', 12.00, 36, '', NULL, NULL, NULL),
+(10, '2024-07-06 06:11:41.431589', 'aprobado', 90.00, 36, 'core/img/comprobante/portada_sousou-no-frieren-35_nek6mGW.jpg', NULL, NULL, NULL),
+(11, '2024-07-12 03:08:47.869703', 'pendiente', 100.00, 36, '', NULL, NULL, NULL),
+(12, '2024-07-12 03:23:37.053956', 'pendiente', 100.00, 36, '', NULL, NULL, NULL),
+(13, '2024-07-12 03:52:42.509511', 'pendiente', 12.00, 36, '', NULL, NULL, NULL),
+(14, '2024-07-12 04:02:25.561631', 'pendiente', 12.00, 36, '', '', '', ''),
+(15, '2024-07-12 04:23:05.892747', 'pendiente', 12.00, 36, '', '', '', ''),
+(16, '2024-07-12 04:34:02.748289', 'pendiente', 12.00, 36, '', '', '', ''),
+(17, '2024-07-12 04:39:00.868870', 'pendiente', 24.00, 36, '', '', '', ''),
+(18, '2024-07-13 00:29:40.930137', 'pendiente', 90.00, 36, '', NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `core_producto`
 --
 
@@ -623,6 +732,21 @@ INSERT INTO `core_producto` (`id`, `nombre`, `precio`, `stock`, `descripcion`, `
 (11, 'correa para perro', 2990, 986, 'correa para perro celeste', 'Correaaaa_6rhILjn_uml8XBQ_cqirwX8.jpg', '2023-07-11 02:32:41.910777', '2023-07-11 20:18:16.515703', 2),
 (12, 'identificador para perro', 2990, 1981, 'identificador para perro', 'Identificador_morado_xDZdKkP_RZuZUTF_dK2tYkI.webp', '2023-07-11 19:29:02.359958', '2023-07-11 20:06:32.001881', 2),
 (13, 'juguete para perro', 1990, 867, 'juguete para perro', 'pelotascolores_5THCb5j.png', '2023-07-11 19:29:34.504645', '2023-07-11 20:18:22.683145', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `core_review`
+--
+
+CREATE TABLE `core_review` (
+  `id` int(11) NOT NULL,
+  `producto_id` varchar(20) NOT NULL,
+  `comentario` longtext NOT NULL,
+  `calificacion` int(11) NOT NULL,
+  `fecha_creacion` datetime(6) NOT NULL,
+  `usuario_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -977,11 +1101,56 @@ ALTER TABLE `core_compraitem`
   ADD KEY `core_compraitem_compra_id_332505f6_fk_core_compra_id` (`compra_id`);
 
 --
+-- Indices de la tabla `core_entrega`
+--
+ALTER TABLE `core_entrega`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `core_entrega_entregado_por_id_94b1267c_fk_auth_user_id` (`entregado_por_id`),
+  ADD KEY `core_entrega_recibido_por_id_0f3ab077_fk_auth_user_id` (`recibido_por_id`),
+  ADD KEY `core_entrega_pedido_id_31283388_fk` (`pedido_id`);
+
+--
+-- Indices de la tabla `core_orden`
+--
+ALTER TABLE `core_orden`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `core_orden_bodeguero_id_333f71d5_fk_auth_user_id` (`bodeguero_id`);
+
+--
+-- Indices de la tabla `core_ordenb`
+--
+ALTER TABLE `core_ordenb`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `core_ordenb_vendedor_id_3b527c73_fk_auth_user_id` (`vendedor_id`);
+
+--
+-- Indices de la tabla `core_pago`
+--
+ALTER TABLE `core_pago`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `core_pago_usuario_id_bec73968_fk_auth_user_id` (`usuario_id`),
+  ADD KEY `core_pago_pedido_id_24c64bf7_fk` (`pedido_id`);
+
+--
+-- Indices de la tabla `core_pedido`
+--
+ALTER TABLE `core_pedido`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `core_pedido_usuario_id_2aebb526_fk_auth_user_id` (`usuario_id`);
+
+--
 -- Indices de la tabla `core_producto`
 --
 ALTER TABLE `core_producto`
   ADD PRIMARY KEY (`id`),
   ADD KEY `core_producto_tipo_id_e0e92ad1_fk_core_tipoproducto_id` (`tipo_id`);
+
+--
+-- Indices de la tabla `core_review`
+--
+ALTER TABLE `core_review`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `core_review_usuario_id_eac8b833_fk_auth_user_id` (`usuario_id`);
 
 --
 -- Indices de la tabla `core_subscrito`
@@ -1094,10 +1263,46 @@ ALTER TABLE `core_compraitem`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
+-- AUTO_INCREMENT de la tabla `core_entrega`
+--
+ALTER TABLE `core_entrega`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `core_orden`
+--
+ALTER TABLE `core_orden`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `core_ordenb`
+--
+ALTER TABLE `core_ordenb`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `core_pago`
+--
+ALTER TABLE `core_pago`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `core_pedido`
+--
+ALTER TABLE `core_pedido`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
 -- AUTO_INCREMENT de la tabla `core_producto`
 --
 ALTER TABLE `core_producto`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT de la tabla `core_review`
+--
+ALTER TABLE `core_review`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `core_subscrito`
@@ -1200,10 +1405,49 @@ ALTER TABLE `core_compraitem`
   ADD CONSTRAINT `core_compraitem_compra_id_332505f6_fk` FOREIGN KEY (`compra_id`) REFERENCES `core_compra` (`id`);
 
 --
+-- Filtros para la tabla `core_entrega`
+--
+ALTER TABLE `core_entrega`
+  ADD CONSTRAINT `core_entrega_entregado_por_id_94b1267c_fk_auth_user_id` FOREIGN KEY (`entregado_por_id`) REFERENCES `auth_user` (`id`),
+  ADD CONSTRAINT `core_entrega_pedido_id_31283388_fk` FOREIGN KEY (`pedido_id`) REFERENCES `core_pedido` (`id`),
+  ADD CONSTRAINT `core_entrega_recibido_por_id_0f3ab077_fk_auth_user_id` FOREIGN KEY (`recibido_por_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Filtros para la tabla `core_orden`
+--
+ALTER TABLE `core_orden`
+  ADD CONSTRAINT `core_orden_bodeguero_id_333f71d5_fk_auth_user_id` FOREIGN KEY (`bodeguero_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Filtros para la tabla `core_ordenb`
+--
+ALTER TABLE `core_ordenb`
+  ADD CONSTRAINT `core_ordenb_vendedor_id_3b527c73_fk_auth_user_id` FOREIGN KEY (`vendedor_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Filtros para la tabla `core_pago`
+--
+ALTER TABLE `core_pago`
+  ADD CONSTRAINT `core_pago_pedido_id_24c64bf7_fk` FOREIGN KEY (`pedido_id`) REFERENCES `core_pedido` (`id`),
+  ADD CONSTRAINT `core_pago_usuario_id_bec73968_fk_auth_user_id` FOREIGN KEY (`usuario_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Filtros para la tabla `core_pedido`
+--
+ALTER TABLE `core_pedido`
+  ADD CONSTRAINT `core_pedido_usuario_id_2aebb526_fk_auth_user_id` FOREIGN KEY (`usuario_id`) REFERENCES `auth_user` (`id`);
+
+--
 -- Filtros para la tabla `core_producto`
 --
 ALTER TABLE `core_producto`
   ADD CONSTRAINT `core_producto_tipo_id_e0e92ad1_fk_core_tipoproducto_id` FOREIGN KEY (`tipo_id`) REFERENCES `core_tipoproducto` (`id`);
+
+--
+-- Filtros para la tabla `core_review`
+--
+ALTER TABLE `core_review`
+  ADD CONSTRAINT `core_review_usuario_id_eac8b833_fk_auth_user_id` FOREIGN KEY (`usuario_id`) REFERENCES `auth_user` (`id`);
 
 --
 -- Filtros para la tabla `core_subscrito`
