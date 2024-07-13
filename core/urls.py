@@ -20,6 +20,7 @@ urlpatterns = [
 
 
     path('', index, name = "index"),
+    path('paypal-confirm/', paypal_confirm, name='paypal_confirm'),
     path('indexapi/', indexapi, name = "indexapi"),
     path('blog/', blog, name = "blog"),
     path('blogapi/', blogapi, name = "blogapi"),
@@ -31,18 +32,24 @@ urlpatterns = [
     path('confirmation/', confirmation, name = "confirmation"),
     path('order_history/', order_history, name="order_history"),
     path('contact/', contact,name = "contact"),
-    path('forgot-password/', forgot_password, name='forgot_password'),
+
     path('indexUser/', indexUser,name = "indexUser"),
     path('indexUserSubscito/', indexUserSubscito, name = "indexUserSubscito"),
     path('login/', login,name = "login"),
     path('perfil/', perfil,name = "perfil"),
     path('registro/', registro,name = "registro"),
     path('singleblog/', singleblog, name="singleblog"),
-    path('singleproduct/<id>', singleproduct, name="singleproduct"),
+    path('singleproduct/<id>/', singleproduct, name="singleproduct"),
     path('subsForm/', subsForm,name = "subsForm"),
     path('trackingorder/', trackingorder,name = "tracking-order"),
     path('asignar-roles/', asignar_roles, name='asignar_roles'),
-    path('password_reset/', password_reset, name='password_reset'),
+
+    
+
+
+    path('forgot-password/', forgot_password, name='forgot_password'),
+    path('password_reset/<str:token>/', password_reset, name='password_reset'),
+    path('email-sent/', email_sent, name='email_sent'),
     #path('remover_grupo/<int:usuario_id>/<int:grupo_id>/', remover_grupo, name='remover_grupo'),
     
 
@@ -76,5 +83,6 @@ urlpatterns = [
     path('ordenes_pedidos/', ordenes_pedidos, name='ordenes_pedidos'),
     path('ReportesVentas/', ReportesVentas, name='ReportesVentas'),
     path('transferencia_bancaria/', transferencia_bancaria, name='transferencia_bancaria'),
+    path('monedas_data/', monedas_data, name='monedas_data'),
 ]
 

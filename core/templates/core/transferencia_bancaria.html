@@ -1,5 +1,4 @@
 <!-- En transferencia_bancaria.html -->
-
 {% extends 'core/base.html' %}
 {% load static %}
 
@@ -10,7 +9,7 @@
         {% csrf_token %}
         <div class="form-group">
             <label for="id_comprobante_transferencia">Subir archivo:</label>
-            <input type="file" class="form-control-file" id="id_comprobante_transferencia" name="comprobante_transferencia">
+            <input type="file" class="form-control-file" id="id_comprobante_transferencia" name="comprobante_transferencia" required>
         </div>
         <button type="submit" class="btn btn-primary">Enviar Comprobante</button>
     </form>

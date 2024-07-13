@@ -168,7 +168,7 @@ MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 465
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'ferremas15@gmail.com'  # Tu dirección de correo electrónico de Gmail
-EMAIL_HOST_PASSWORD = 'ferremas123.' 
+EMAIL_PORT = 587  # Cambiamos el puerto a 465 para SSL
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = 'matiasquezada348@gmail.com'  # Tu dirección de correo electrónico de Gmail
+EMAIL_HOST_PASSWORD = 'cqez jdwu spti bftw' 

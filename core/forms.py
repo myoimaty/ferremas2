@@ -81,3 +81,11 @@ class CustomUserCreationForm(UserCreationForm):
         class Meta:
             model = Checkdata
             fields = ['first_name', 'last_name', 'address1', 'region', 'zip_code']
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['calificacion', 'comentario']
+        widgets = {
+            'calificacion': forms.RadioSelect(choices=[(i, i) for i in range(1, 6)]),
+        }      

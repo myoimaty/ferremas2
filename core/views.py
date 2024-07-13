@@ -9,11 +9,12 @@ from django.contrib.auth.decorators import login_required, permission_required, 
 from rest_framework import viewsets
 from .serializers import *
 import requests 
+from django.conf import settings
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import Group
 from .forms import CustomUserCreationForm
 from django.contrib.auth.forms import UserCreationForm
-
+from django.urls import reverse
 from django.shortcuts import render
 from django.contrib.auth.forms import PasswordResetForm
 from django.core.mail import send_mail
@@ -114,6 +115,77 @@ def obtener_detalles_producto(producto_id_api):
         return response.json()
     else:
         return None
+
+def paypal_confirm(request):
+    if request.method == 'POST':
+        paypal_payment_id = request.POST.get('paypal_payment_id')
+        if not paypal_payment_id:
+            messages.error(request, "ID de pago de PayPal no encontrado.")
+            return redirect('checkout')
+        
+        try:
+            # Obtener el carrito de compras del usuario
+            carro_compras = CarroCompras.objects.get(usuario=request.user)
+
+            # Calcular el total de la compra
+            total_compra = 0
+            items = carro_compras.items.all()
+            for item in items:
+                response = requests.get(f"{API_URL}/productos/{item.producto_id_api}")
+                if response.status_code == 200:
+                    producto = response.json()
+                    precio = float(producto.get('precio', 0))
+                    cantidad = item.cantidad
+                    subtotal = precio * cantidad
+                    total_compra += subtotal
+                else:
+                    print(f"Error al obtener producto {item.producto_id_api}")
+
+            # Crear una instancia de compra con el total calculado
+            compra = Compra.objects.create(usuario=request.user, total=total_compra)
+
+            # Crear una instancia de pedido con los datos necesarios
+            pedido = Pedido.objects.create(
+                usuario=request.user,
+                total=total_compra,
+                estado='aprobado'  # Establece el estado del pedido a "aprobado"
+            )
+
+            # Procesar los elementos del carrito
+            for item in items:
+                producto_id_api = item.producto_id_api
+                cantidad = item.cantidad
+                
+                # Llamar a la función para actualizar el stock en la API
+                try:
+                    actualizar_stock(producto_id_api, cantidad)
+                except Exception as e:
+                    print(f"Error al actualizar el stock para el producto {producto_id_api}: {e}")
+                    messages.error(request, f"Error al actualizar el stock para el producto {producto_id_api}: {e}")
+
+                response = requests.get(f"{API_URL}/productos/{producto_id_api}")
+                if response.status_code == 200:
+                    producto = response.json()
+                    compra_item = CompraItem.objects.create(
+                        compra=compra,
+                        carro_item=item
+                    )
+                else:
+                    print(f"No se pudo obtener información del producto {producto_id_api} de la API")
+
+                item.delete()
+
+            carro_compras.delete()
+
+            messages.success(request, "¡Pago realizado correctamente!")
+            return redirect('index')
+        except Exception as e:
+            print(f"Error al procesar la compra: {e}")
+            messages.error(request, "Ocurrió un error al procesar la compra. Por favor, inténtalo de nuevo más tarde.")
+            return redirect('index')
+
+    return redirect('/')
+
 @login_required
 def compra_confirm(request):
     try:
@@ -428,6 +500,7 @@ def singleproduct(request, id):
     }
     return render(request, 'core/single-product.html', data)
 
+
 def grupo_requerido(nombre_grupo):
 	def decorator(view_func):
 		@user_passes_test(lambda user: user.groups.filter(name=nombre_grupo).exists())
@@ -466,23 +539,33 @@ class CompraItemViewset(viewsets.ModelViewSet):
 	
     
 def indexapi(request):
-	#REALIZAMOS LA SOLICITUD AL API
-	respuesta = requests.get('http://127.0.0.1:8000/api/productos/')
-	respuesta2 = requests.get('https://mindicador.cl/api')
-	respuesta3 = requests.get('https://rickandmortyapi.com/api/character')
-	# TRANSFORMAMOS EL JSON
-	productos = respuesta.json()
-	monedas = respuesta2.json()
-	aux = respuesta3.json()
-	personajes = aux['results']
+    # Realizamos la solicitud a la API de productos
+    respuesta = requests.get('http://127.0.0.1:8000/api/productos/')
+    # Realizamos la solicitud a la API de mindicator
+    respuesta2 = requests.get('https://mindicador.cl/api')
+    # Realizamos la solicitud a la API de Rick and Morty (por ejemplo)
+    respuesta3 = requests.get('https://rickandmortyapi.com/api/character')
+    
+    # Transformamos el JSON
+    productos = respuesta.json()
+    monedas = respuesta2.json()
+    aux = respuesta3.json()
+    personajes = aux['results']
 
-	data = {
-		'listaProductos': productos,
-		'monedas': monedas,
-		'personajes': personajes,
-	}
-	return render(request, 'core/indexapi.html', data)
+    # Extraer los valores de UF y Dólar
+    uf_value = monedas.get('uf', {}).get('valor', 'N/A')
+    dolar_value = monedas.get('dolar', {}).get('valor', 'N/A')
 
+    data = {
+        'listaProductos': productos,
+        'monedas': {
+            'uf': uf_value,
+            'dolar': dolar_value,
+        },
+        'personajes': personajes,
+    }
+
+    return render(request, 'core/indexapi.html', data)
 	#API ANIMALES
 def blogapi(request):
 	#Solicitud al api
@@ -498,11 +581,13 @@ def blogapi(request):
 def index(request):
     try:
         # Obtener datos de la API
+        respuesta2 = requests.get('https://mindicador.cl/api')
         response = requests.get('http://127.0.0.1:5000/productos')
         response.raise_for_status()  # Lanza una excepción si la solicitud no es exitosa
         productos_api = response.json()
 
         # Paginar los productos
+        monedas = respuesta2.json()
         paginator = Paginator(productos_api, 8)
         page_number = request.GET.get('page', 1)
         page_obj = paginator.get_page(page_number)
@@ -515,6 +600,7 @@ def index(request):
             'is_bodeguero': user.groups.filter(name='bodeguero').exists(),
             'is_contador': user.groups.filter(name='contador').exists(),
         }
+        dolar_value = monedas.get('dolar', {}).get('valor', 'N/A')
 
     except Exception as e:
         print(f"Error al obtener datos de la API: {e}")
@@ -523,6 +609,9 @@ def index(request):
     data = {
         'page_obj': page_obj,
         'roles': roles,
+        'monedas': {
+            'dolar': dolar_value,
+        },
     }
     return render(request, 'core/index.html', data)
 
@@ -657,30 +746,55 @@ def contact(request):
 
 def forgot_password(request):
     if request.method == 'POST':
-        form = PasswordResetForm(request.POST)
-        if form.is_valid():
-            email = form.cleaned_data['email']
-            user = User.objects.get(email=email)
-            token = default_token_generator.make_token(user)
-            uid = urlsafe_base64_encode(force_bytes(user.pk))
-            reset_url = f"http://example.com/reset-password/{uid}/{token}/"
+        email = request.POST['email']
+        user = User.objects.filter(email=email).first()
+        if user:
+            reset_url = request.build_absolute_uri(reverse('password_reset', args=[user.pk]))
+            send_mail(
+                'Cambio de Contraseña',
+                f'Por favor, usa este enlace para cambiar tu contraseña: {reset_url}',
+                settings.EMAIL_HOST_USER,
+                [email],
+                fail_silently=False,
+            )
+            messages.success(request, 'Se ha enviado un enlace de restablecimiento de contraseña a tu correo.')
+            return redirect('login')  # Redirige a la página de login o a otra página
+        else:
+            messages.error(request, 'No se encontró una cuenta con ese correo electrónico.')
+    return render(request, 'core/forgot_password.html')
 
-            # Envía el correo electrónico de restablecimiento de contraseña
-            subject = 'Restablecimiento de contraseña'
-            message = render_to_string('core/password_reset.html', {
-                'user': user,
-                'reset_url': reset_url,
-            })
-            send_mail(subject, message, 'tu_correo@gmail.com', [email])
-            
-            return render(request, 'core/password_reset.html')
+
+def send_reset_password_email(user):
+    token = 'GENERAR_UN_TOKEN_UNICO_AQUI'
+    reset_url = reverse('reset_password', args=[token])
+    send_mail(
+        'Cambio de Contraseña',
+        f'Usa este enlace para cambiar tu contraseña: {reset_url}',
+        settings.DEFAULT_FROM_EMAIL,
+        [user.email],
+        fail_silently=False,
+    )
+
+def email_sent(request):
+    return render(request, 'core/email_sent.html')
+
+def password_reset(request, token):
+    # Asumiendo que el token también incluye información para identificar al usuario
+    user_id, token = token.split(":", 1)
+    user = User.objects.get(pk=user_id)
+    
+    if verify_token(user, token):
+        if request.method == 'POST':
+            new_password = request.POST.get('new_password')
+            user.set_password(new_password)
+            user.save()
+            messages.success(request, 'Tu contraseña ha sido actualizada.')
+            return redirect('login')
+        # Si no tienes el archivo 'change_password.html', redirige a 'forgot_password.html' o a cualquier otro que tengas
+        return render(request, 'core/forgot_password.html')
     else:
-        form = PasswordResetForm()
-    return render(request, 'core/forgot_password.html', {'form': form})
-
-
-def password_reset(request):
-	return render(request, 'core/password_reset.html')			
+        messages.error(request, 'El enlace para restablecer la contraseña no es válido o ha expirado.')
+        return redirect('core/forgot_password')	
 
 def indexUser(request):
 	return render(request, 'core/indexUser.html')				
@@ -998,3 +1112,21 @@ def ordenes_pedidos(request):
         vendedores = User.objects.filter(groups__name='vendedor')
         historial_ordenes = OrdenB.objects.all()
         return render(request, 'core/ordenes_pedidos.html', {'vendedores': vendedores, 'historial_ordenes': historial_ordenes})
+        
+def monedas_data(request):
+    # Realizamos la solicitud a la API de mindicator
+    respuesta = requests.get('https://mindicador.cl/api')
+    if respuesta.status_code == 200:
+        monedas = respuesta.json()
+        uf_value = monedas.get('uf', {}).get('valor', 'N/A')
+        dolar_value = monedas.get('dolar', {}).get('valor', 'N/A')
+    else:
+        uf_value = 'N/A'
+        dolar_value = 'N/A'
+
+    data = {
+        'uf': uf_value,
+        'dolar': dolar_value,
+    }
+
+    return render(request, 'core/base.html', data)        
