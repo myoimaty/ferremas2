@@ -1113,20 +1113,3 @@ def ordenes_pedidos(request):
         historial_ordenes = OrdenB.objects.all()
         return render(request, 'core/ordenes_pedidos.html', {'vendedores': vendedores, 'historial_ordenes': historial_ordenes})
         
-def monedas_data(request):
-    # Realizamos la solicitud a la API de mindicator
-    respuesta = requests.get('https://mindicador.cl/api')
-    if respuesta.status_code == 200:
-        monedas = respuesta.json()
-        uf_value = monedas.get('uf', {}).get('valor', 'N/A')
-        dolar_value = monedas.get('dolar', {}).get('valor', 'N/A')
-    else:
-        uf_value = 'N/A'
-        dolar_value = 'N/A'
-
-    data = {
-        'uf': uf_value,
-        'dolar': dolar_value,
-    }
-
-    return render(request, 'core/base.html', data)        
