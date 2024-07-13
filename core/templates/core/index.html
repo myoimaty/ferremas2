@@ -140,6 +140,7 @@
 </section>
 <body>
   <div class="container">
+    {% if user.is_superuser %}
       <h2>Enlaces disponibles</h2>
       <div class="button-container">
           {% if roles.is_cliente %}
