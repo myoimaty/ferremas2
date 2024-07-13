@@ -18,9 +18,67 @@
         <div class="offer__content text-center">
           <p>Bienvenidos a</p>
           <!-- Título FERREMAS más grande y centrado -->
-          <h3 style="font-size: 8em; margin: 0 auto; color: rgb(255, 255, 255);">FERREMAS</h3>
+          <h3 style="font-size: 8em; margin: 0 auto; color: rgb(0, 0, 0);">FERREMAS</h3>
+          <head>
+            <meta charset="UTF-8">
+            <style>
+              body {
+                  font-family: Arial, sans-serif;
+                  background-color: #f4f4f4; /* Fondo más claro para un look moderno */
+              }
+              .search-container {
+                  text-align: center;
+                  margin-top: 20px;
+                  padding: 20px;
+                  background-color: #fff; /* Fondo blanco para el contenedor de búsqueda */
+                  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra suave para profundidad */
+                  border-radius: 8px; /* Bordes redondeados */
+                  display: inline-block; /* Asegura que el contenedor no ocupe el ancho completo */
+              }
+              .search-container input[type="text"] {
+                  border: 1px solid #ccc; /* Borde más suave */
+                  padding: 10px;
+                  margin-right: 10px;
+                  border-radius: 4px; /* Bordes redondeados para el input */
+                  outline: none; /* Remueve el contorno al enfocar */
+                  transition: border-color 0.3s; /* Transición suave al cambiar el color del borde */
+              }
+              .search-container input[type="text"]:focus {
+                  border-color: #007bff; /* Cambia el color del borde al enfocar */
+              }
+              .search-container button {
+                  background-color: #000000; /* Color de fondo para el botón */
+                  color: #ffffff; /* Texto blanco para el botón */
+                  padding: 10px 15px;
+                  border: none;
+                  border-radius: 4px; /* Bordes redondeados para el botón */
+                  cursor: pointer; /* Cambia el cursor a una mano al pasar sobre el botón */
+                  transition: background-color 0.3s; /* Transición suave al cambiar el color de fondo */
+              }
+              .search-container button:hover {
+                  background-color: #0056b3; /* Oscurece el botón al pasar el mouse */
+              }
+          </style>
+        </head>
+        <body>
+          <div class="search-container">
+            <form id="searchForm">
+              <input type="text" id="searchInput" placeholder="Buscar productos..." oninput="toggleButton()">
+              <button type="submit" id="searchButton" disabled>Buscar</button>
+            </form>
+          </div>
+          
+          <script>
+            function toggleButton() {
+              var searchInput = document.getElementById('searchInput').value;
+              var searchButton = document.getElementById('searchButton');
+              searchButton.disabled = searchInput.trim() === ''; // Deshabilita el botón si el campo está vacío
+            }
+          </script>
+        
+        <div id="results"></div>
           <h4></h4>
-          <!-- Formulario de búsqueda mejorado con bordes redondeados -->
+          
         </div>
       </div>
     </div>
@@ -90,13 +148,13 @@
               <a href="{% url 'opciones_pago' %}" class="button">Opciones de Pago</a>
           {% endif %}
           {% if roles.is_vendedor %}
-              <a href="{% url 'productos_bodega' %}" class="button">Productos en Bodega</a>
+
               <a href="{% url 'gestionar_pedidos' %}" class="button">Gestionar Pedidos</a>
               <a href="{% url 'ordenar_pedidos' %}" class="button">Ordenar Pedidos</a>
           {% endif %}
           {% if roles.is_bodeguero %}
               <a href="{% url 'ordenes_pedidos' %}" class="button">Órdenes de Pedidos</a>
-              <a href="{% url 'preparar_pedidos' %}" class="button">Preparar Pedidos</a>
+
           {% endif %}
           {% if roles.is_contador %}
               <a href="{% url 'confirmation' %}" class="button">Confirmar Pagos</a>
@@ -106,5 +164,21 @@
       </div>
   </div>
 </body>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("searchForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // Previene el comportamiento predeterminado del formulario
+  
+      // Obtiene el valor del input de búsqueda
+      var searchId = document.getElementById("searchInput").value;
+  
+      // Construye la URL para redirigir al usuario a la página singleproduct con el ID del producto
+      var url = "http://127.0.0.1:8000/singleproduct/" + encodeURIComponent(searchId);
+  
+      // Redirige al usuario a la página singleproduct con el ID del producto en la URL
+      window.location.href = url;
+    });
+  });
+</script>
 <br>
 {% endblock %}

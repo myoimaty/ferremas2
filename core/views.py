@@ -349,7 +349,8 @@ def cart(request):
     print(f"Total en CLP: {total}, Total en USD: {valor_total}")
 
     return render(request, 'core/cart.html', data)
-
+    
+@login_required
 def cartadd(request, id):
     # Obtener el producto de la API en lugar de la base de datos local
     response = requests.get(f"{API_URL}/productos/{id}")
@@ -809,8 +810,6 @@ def subsForm(request):
         form = DonacionForm()
 
     return render(request, 'core/subsForm.html', {'form': form})
-
-
 @login_required
 @permission_required('auth.change_user')
 def asignar_roles(request):
@@ -831,21 +830,19 @@ def asignar_roles(request):
                 grupo = Group.objects.get(name=nuevo_rol)
                 usuario.groups.remove(grupo)
                 messages.success(request, f"Se quitó el rol '{nuevo_rol}' al usuario '{usuario_nombre}' correctamente.")
-            else:
-                messages.warning(request, "Acción no válida o rol no especificado.")
+           
         except User.DoesNotExist:
             messages.error(request, f"El usuario con ID '{usuario_id}' no existe.")
         except Group.DoesNotExist:
             messages.error(request, f"El grupo '{nuevo_rol}' no existe.")
 
-        return redirect('asignar_roles')
+        return redirect(f'{request.path}?usuario_id={usuario_id}')
 
     usuarios = User.objects.all()
     grupos = Group.objects.all()
     
-    # Obtener los roles del usuario seleccionado
     roles_usuario = None
-    usuario_id = request.GET.get('usuario_id')  # Obtener el usuario seleccionado del query string
+    usuario_id = request.GET.get('usuario_id')
     if usuario_id:
         try:
             usuario_seleccionado = User.objects.get(pk=usuario_id)
@@ -854,7 +851,6 @@ def asignar_roles(request):
             pass
 
     return render(request, 'core/asignar_roles.html', {'usuarios': usuarios, 'grupos': grupos, 'roles_usuario': roles_usuario})
-
 
 
 @login_required
