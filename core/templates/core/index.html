@@ -61,12 +61,9 @@
           </style>
         </head>
         <body>
-          <div class="search-container">
-            <form id="searchForm">
-              <input type="text" id="searchInput" placeholder="Buscar productos..." oninput="toggleButton()">
-              <button type="submit" id="searchButton" disabled>Buscar</button>
-            </form>
-          </div>
+
+          <br><br>
+
           
           <script>
             function toggleButton() {
@@ -75,8 +72,17 @@
               searchButton.disabled = searchInput.trim() === ''; // Deshabilita el botón si el campo está vacío
             }
           </script>
+          <form action="{% url 'buscar_producto' %}" method="GET">
+            <input type="text" name="q" placeholder="Buscar productos...">
+            <button type="submit">Buscar</button>
+        </form>
+
+          
         
         <div id="results"></div>
+
+
+
           <h4></h4>
           
         </div>

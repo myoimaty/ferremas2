@@ -116,77 +116,9 @@ def obtener_detalles_producto(producto_id_api):
     else:
         return None
 
-def paypal_confirm(request):
-    if request.method == 'POST':
-        paypal_payment_id = request.POST.get('paypal_payment_id')
-        if not paypal_payment_id:
-            messages.error(request, "ID de pago de PayPal no encontrado.")
-            return redirect('checkout')
-        
-        try:
-            # Obtener el carrito de compras del usuario
-            carro_compras = CarroCompras.objects.get(usuario=request.user)
 
-            # Calcular el total de la compra
-            total_compra = 0
-            items = carro_compras.items.all()
-            for item in items:
-                response = requests.get(f"{API_URL}/productos/{item.producto_id_api}")
-                if response.status_code == 200:
-                    producto = response.json()
-                    precio = float(producto.get('precio', 0))
-                    cantidad = item.cantidad
-                    subtotal = precio * cantidad
-                    total_compra += subtotal
-                else:
-                    print(f"Error al obtener producto {item.producto_id_api}")
 
-            # Crear una instancia de compra con el total calculado
-            compra = Compra.objects.create(usuario=request.user, total=total_compra)
 
-            # Crear una instancia de pedido con los datos necesarios
-            pedido = Pedido.objects.create(
-                usuario=request.user,
-                total=total_compra,
-                estado='aprobado'  # Establece el estado del pedido a "aprobado"
-            )
-
-            # Procesar los elementos del carrito
-            for item in items:
-                producto_id_api = item.producto_id_api
-                cantidad = item.cantidad
-                
-                # Llamar a la función para actualizar el stock en la API
-                try:
-                    actualizar_stock(producto_id_api, cantidad)
-                except Exception as e:
-                    print(f"Error al actualizar el stock para el producto {producto_id_api}: {e}")
-                    messages.error(request, f"Error al actualizar el stock para el producto {producto_id_api}: {e}")
-
-                response = requests.get(f"{API_URL}/productos/{producto_id_api}")
-                if response.status_code == 200:
-                    producto = response.json()
-                    compra_item = CompraItem.objects.create(
-                        compra=compra,
-                        carro_item=item
-                    )
-                else:
-                    print(f"No se pudo obtener información del producto {producto_id_api} de la API")
-
-                item.delete()
-
-            carro_compras.delete()
-
-            messages.success(request, "¡Pago realizado correctamente!")
-            return redirect('index')
-        except Exception as e:
-            print(f"Error al procesar la compra: {e}")
-            messages.error(request, "Ocurrió un error al procesar la compra. Por favor, inténtalo de nuevo más tarde.")
-            return redirect('index')
-
-    return redirect('/')
-
-@login_required
 def compra_confirm(request):
     try:
         # Obtener el carrito de compras del usuario
@@ -256,6 +188,7 @@ def compra_confirm(request):
         print(f"Error al procesar la compra: {e}")
         messages.error(request, "Ocurrió un error al procesar la compra. Por favor, inténtalo de nuevo más tarde.")
         return redirect('index')  # Redirigir al usuario a la página de inicio en caso de error
+        
     
 
         
@@ -1113,3 +1046,14 @@ def ordenes_pedidos(request):
         historial_ordenes = OrdenB.objects.all()
         return render(request, 'core/ordenes_pedidos.html', {'vendedores': vendedores, 'historial_ordenes': historial_ordenes})
         
+def buscar_producto(request):
+    query = request.GET.get('q')
+    productos = []
+    
+    if query:
+        api_url = f'http://127.0.0.1:5000/productos?nombre={query}'
+        response = requests.get(api_url)
+        if response.status_code == 200:
+            productos = response.json()
+    
+    return render(request, 'core/busqueda_producto.html', {'productos': productos})

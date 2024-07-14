@@ -12,7 +12,7 @@ router.register('compra-item', CompraItemViewset)  # Registrar el ViewSet de Com
 
 urlpatterns = [
 
-    path('compra-confirmada/', compra_confirm, name='compra_confirmada'),
+    path('compra_confirm/', compra_confirm, name='compra_confirm'),
     # API
     path('api/', include(router.urls)),
 
@@ -20,7 +20,6 @@ urlpatterns = [
 
 
     path('', index, name = "index"),
-    path('paypal-confirm/', paypal_confirm, name='paypal_confirm'),
     path('indexapi/', indexapi, name = "indexapi"),
     path('blog/', blog, name = "blog"),
     path('blogapi/', blogapi, name = "blogapi"),
@@ -83,6 +82,9 @@ urlpatterns = [
     path('ordenes_pedidos/', ordenes_pedidos, name='ordenes_pedidos'),
     path('ReportesVentas/', ReportesVentas, name='ReportesVentas'),
     path('transferencia_bancaria/', transferencia_bancaria, name='transferencia_bancaria'),
-    path('monedas_data/', monedas_data, name='monedas_data'),
+    
+        # Ruta para buscar productos
+    path('buscar/', buscar_producto, name='buscar_producto'),
+
 ]
 

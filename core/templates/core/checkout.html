@@ -284,7 +284,7 @@
         },
         onAuthorize: function (data, actions) {
             return actions.payment.execute().then(function(){
-                window.location.href = "{% url 'paypal_confirm' %}";
+                window.location.href = "{% url 'compra_confirm' %}";
             });
         },
         onCancel: function (data) {

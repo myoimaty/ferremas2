@@ -1,0 +1,57 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block contenido %}
+
+<section class="offer" id="parallax-1" data-anchor-target="#parallax-1" data-300-top="background-position: 20px 30px" data-top-bottom="background-position: 0 20px" style="background-image: url('/media/madera.jpg');">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-5">
+        <div class="offer__content text-center">
+          <p>Bienvenidos a</p>
+          <h3 style="font-size: 8em; margin: 0 auto; color: rgb(0, 0, 0);">FERREMAS</h3>
+          <div class="search-container">
+            <form action="{% url 'buscar_producto' %}" method="GET">
+              <input type="text" name="q" placeholder="Buscar productos...">
+              <button type="submit">Buscar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-margin calc-60px">
+  <div class="container">
+    <div class="section-intro pb-60px">
+      <h2><span class="section-intro__style">Resultados de Búsqueda</span></h2>
+    </div>
+
+    <div class="row">
+      {% if productos %}
+        {% for producto in productos %}
+          <div class="col-md-6 col-lg-4 col-xl-3">
+            <div class="card text-center card-product">
+              <div class="card-product__img">
+                <img class="card-img" src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
+                <ul class="card-product__imgOverlay">
+                  <li><a href="{% url 'singleproduct' producto.id %}"><button><i class="ti-search"></i></button></a></li>
+                  <li><button><a href="{% url 'cartadd' producto.id %}"><i class="ti-shopping-cart"></i></a></button></li>
+                </ul>
+              </div>
+              <div class="card-body">
+                <h4 class="card-product__title"><a href="{% url 'singleproduct' producto.id %}">{{ producto.nombre }}</a></h4>
+                <p class="card-product__price">${{ producto.precio }}</p>
+                <p>Stock: {{ producto.stock }}</p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>No se encontraron productos.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}
