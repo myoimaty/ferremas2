@@ -97,7 +97,7 @@ def checkout(request):
         Pedido = Pedido.objects.create(
             usuario=request.user,
             total=total_final,
-            estado='pendiente'  # O cualquier otro estado inicial que desees
+            estado='aprobado'  # O cualquier otro estado inicial que desees
         )
 
         carro_compras.items.clear()
@@ -144,7 +144,8 @@ def compra_confirm(request):
         # Crear una instancia de pedido con los datos necesarios
         pedido = Pedido.objects.create(
             usuario=request.user,
-            total=total_compra
+            total=total_compra,
+            estado='aprobado'
         )
 
         # Procesar los elementos del carrito
@@ -574,6 +575,7 @@ def transferencia_bancaria(request):
         pedido = Pedido.objects.create(
             usuario=request.user,
             total=total_compra,
+            estado='Pendiente',
             comprobante_transferencia=comprobante_transferencia
         )
 

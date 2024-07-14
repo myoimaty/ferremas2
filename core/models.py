@@ -92,6 +92,7 @@ class CarroCompras(models.Model):
 class Pedido(models.Model):
     ESTADO_CHOICES = [
         ('pendiente', 'Pendiente'),
+        ('aprobado', 'aprobado'),
         ('en_proceso', 'En proceso'),
         ('completado', 'Completado'),
         ('cancelado', 'Cancelado'),
