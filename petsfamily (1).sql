@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-07-2024 a las 00:23:10
+-- Tiempo de generación: 14-07-2024 a las 03:29:03
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -396,7 +396,7 @@ CREATE TABLE `auth_user` (
 --
 
 INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES
-(1, 'pbkdf2_sha256$216000$sIHtAFt5U8LT$81am4FFhswhzwP0Xy4iAo080YHqc2TjBs/kCy+ibfEE=', '2024-07-13 00:11:59.702402', 1, 'admin', '', '', 'mat.quezadap@duocuc.cl', 1, 1, '2023-06-07 13:20:58.000000'),
+(1, 'pbkdf2_sha256$216000$sIHtAFt5U8LT$81am4FFhswhzwP0Xy4iAo080YHqc2TjBs/kCy+ibfEE=', '2024-07-14 00:46:25.280381', 1, 'admin', '', '', 'mat.quezadap@duocuc.cl', 1, 1, '2023-06-07 13:20:58.000000'),
 (3, 'pbkdf2_sha256$216000$GdG2XYp9Z4gm$Q5LLN+j+1PSn8JdrDtbCyIwJhxZf+sUd3Km+oeFJJac=', '2023-07-11 02:38:58.025826', 0, 'cliente', '', '', '', 0, 1, '2023-06-16 14:12:08.000000'),
 (4, 'pbkdf2_sha256$216000$Xmrm88fTM7WL$bP2JoMQ6XdlPco/2dAyd5BfG4EVdv1JHAhPkKjSfK74=', '2023-06-26 02:29:14.862506', 0, 'vendedor', '', '', '', 0, 1, '2023-06-16 14:13:46.000000'),
 (5, 'pbkdf2_sha256$216000$iryMXhaq3wAJ$8jLv3nuu3e1DmGlF4xU2Dxtu2Yqe+htXIOIAx49SbeA=', '2023-06-26 02:29:47.707859', 0, 'administrador', '', '', '', 0, 1, '2023-06-16 14:14:57.000000'),
@@ -405,8 +405,8 @@ INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `userna
 (33, 'pbkdf2_sha256$216000$TGq30fVCeb71$UY9ncbb4Plg2r2hyAsDQ4AfLSMghMR9c2t4CiLasWtw=', '2024-05-13 21:30:42.505979', 0, 'matias1', '', '', 'matiasquez01@gmail.com', 0, 1, '2024-05-13 21:30:29.201853'),
 (34, 'pbkdf2_sha256$216000$6clNxbPJdvAq$gcsYTOsL3MJQ6RffkhVLlhPBHPonxR8x3WdE2wO/KCM=', '2024-05-13 22:32:37.839209', 0, 'javier', '', '', 'julio@gmail.cl', 0, 1, '2024-05-13 21:36:08.769154'),
 (35, 'pbkdf2_sha256$216000$rRG6ZfjrB2RC$Eok8jot7sVi3BLIxvCIGa7swyC8ZtIzEalNiBnFcOSc=', '2024-05-13 23:14:50.258547', 0, 'mathias', '', '', 'matiasqueza1@gmail.com', 0, 1, '2024-05-13 23:14:29.574271'),
-(36, 'pbkdf2_sha256$216000$yzGIWOmfs4o8$gQThyUhWqwDPUSgCx+uusnyjO+O5DNAOeiVWEzkK8PM=', '2024-07-13 00:28:22.154009', 0, 'maty', '', '', 'mati.dominguez@duocuc.cl', 0, 1, '2024-05-22 23:34:07.307279'),
-(37, 'pbkdf2_sha256$216000$zmEzAa7XVAcg$OJLYpwdE+l7FRsJLypumv022mHTnvrvKS0iq48vkJtc=', '2024-07-13 00:39:03.903216', 0, 'javier1', '', '', 'javier@gmail.com', 0, 1, '2024-05-26 22:31:11.464753'),
+(36, 'pbkdf2_sha256$216000$yzGIWOmfs4o8$gQThyUhWqwDPUSgCx+uusnyjO+O5DNAOeiVWEzkK8PM=', '2024-07-14 00:51:10.967382', 0, 'maty', '', '', 'mati.dominguez@duocuc.cl', 0, 1, '2024-05-22 23:34:07.307279'),
+(37, 'pbkdf2_sha256$216000$zmEzAa7XVAcg$OJLYpwdE+l7FRsJLypumv022mHTnvrvKS0iq48vkJtc=', '2024-07-14 00:22:59.328659', 0, 'javier1', '', '', 'javier@gmail.com', 0, 1, '2024-05-26 22:31:11.464753'),
 (38, 'pbkdf2_sha256$216000$HECIi4ZUW6Ta$7qVo0rINbWLdK3De6NUXXm9mSV8J2dV1xqXmSScd56I=', '2024-06-20 01:01:32.000000', 0, 'test', '', '', 'olapoto@mail.com', 0, 1, '2024-06-20 00:55:49.000000'),
 (39, 'pbkdf2_sha256$216000$W8eMfWszVqwj$R4gIu0bnJAKdhSXfKgAfr89vOXHlXdpiSTHVa/mJZuc=', NULL, 0, 'matiasss', '', '', 'quezadamatias269@gmail.com', 0, 1, '2024-07-13 01:08:54.002222');
 
@@ -476,12 +476,9 @@ CREATE TABLE `core_carrocompras` (
 --
 
 INSERT INTO `core_carrocompras` (`id`, `created_at`, `updated_at`, `compra_id`, `usuario_id`) VALUES
-(2, '2023-06-16 14:20:46.143100', '2023-07-11 02:44:02.919109', NULL, 3),
-(3, '2023-06-25 21:32:16.087932', '2023-06-25 21:32:16.098011', NULL, 4),
 (5, '2024-05-13 21:39:52.449637', '2024-05-13 22:35:12.034467', NULL, 34),
 (14, '2024-05-26 23:28:09.280650', '2024-05-26 23:28:09.289165', NULL, 32),
-(33, '2024-07-13 00:02:02.877387', '2024-07-13 00:57:52.434778', NULL, 37),
-(34, '2024-07-13 01:22:24.561826', '2024-07-13 01:22:24.580829', NULL, 36);
+(50, '2024-07-14 01:15:53.962961', '2024-07-14 01:16:27.784337', NULL, 36);
 
 -- --------------------------------------------------------
 
@@ -502,8 +499,7 @@ CREATE TABLE `core_carrocompras_items` (
 INSERT INTO `core_carrocompras_items` (`id`, `carrocompras_id`, `carroitem_id`) VALUES
 (113, 5, 40),
 (172, 14, 67),
-(264, 33, 94),
-(265, 34, 95);
+(293, 50, 111);
 
 -- --------------------------------------------------------
 
@@ -527,9 +523,14 @@ CREATE TABLE `core_carroitem` (
 INSERT INTO `core_carroitem` (`id`, `cantidad`, `created_at`, `updated_at`, `usuario_id`, `producto_id_api`) VALUES
 (40, 1, '2024-05-13 22:23:05.248270', '2024-05-13 22:35:18.757855', 34, '0'),
 (67, 1, '2024-05-26 23:28:09.285651', '2024-05-26 23:28:09.285651', 32, 'FER-82521'),
-(82, 3, '2024-07-06 04:54:12.430900', '2024-07-06 06:11:27.157699', 36, 'FER-45232'),
 (94, 1, '2024-07-13 00:57:52.417775', '2024-07-13 00:57:52.417775', 37, 'FER-00011'),
-(95, 1, '2024-07-13 01:22:24.573828', '2024-07-13 01:22:24.573828', 36, 'FER-00012');
+(95, 2, '2024-07-13 01:22:24.573828', '2024-07-13 23:04:26.553823', 36, 'FER-00012'),
+(96, 1, '2024-07-13 23:11:02.632262', '2024-07-13 23:11:02.632262', 36, 'FER-00013'),
+(97, 1, '2024-07-13 23:45:34.813127', '2024-07-13 23:45:34.813127', 36, 'FER-00011'),
+(103, 3, '2024-07-14 01:02:39.116234', '2024-07-14 01:14:24.781394', 36, 'FER-45232'),
+(111, 1, '2024-07-14 01:16:27.776335', '2024-07-14 01:16:27.776335', 36, 'FER-82521'),
+(112, 1, '2024-07-14 01:17:00.586379', '2024-07-14 01:17:00.586379', 37, 'FER-12345'),
+(113, 1, '2024-07-14 01:17:40.671674', '2024-07-14 01:17:40.671674', 37, 'FER-82521');
 
 -- --------------------------------------------------------
 
@@ -578,7 +579,17 @@ INSERT INTO `core_compra` (`id`, `fecha`, `created_at`, `updated_at`, `usuario_i
 (24, '2024-07-12 04:23:05.890847', '2024-07-12 04:23:05.890847', '2024-07-12 04:23:05.890847', 36, 12.00),
 (25, '2024-07-12 04:34:02.746291', '2024-07-12 04:34:02.746291', '2024-07-12 04:34:02.746291', 36, 12.00),
 (26, '2024-07-12 04:39:00.866873', '2024-07-12 04:39:00.866873', '2024-07-12 04:39:00.866873', 36, 24.00),
-(27, '2024-07-13 00:29:40.923135', '2024-07-13 00:29:40.924136', '2024-07-13 00:29:40.924136', 36, 90.00);
+(27, '2024-07-13 00:29:40.923135', '2024-07-13 00:29:40.924136', '2024-07-13 00:29:40.924136', 36, 90.00),
+(28, '2024-07-13 23:28:06.793253', '2024-07-13 23:28:06.793253', '2024-07-13 23:28:06.793253', 36, 11.00),
+(29, '2024-07-13 23:33:44.618481', '2024-07-13 23:33:44.618481', '2024-07-13 23:33:44.618481', 36, 11.00),
+(30, '2024-07-14 00:42:08.731046', '2024-07-14 00:42:08.731046', '2024-07-14 00:42:08.731046', 36, 22.00),
+(31, '2024-07-14 00:51:50.675443', '2024-07-14 00:51:50.675443', '2024-07-14 00:51:50.675443', 36, 20.00),
+(32, '2024-07-14 00:56:43.529336', '2024-07-14 00:56:43.529336', '2024-07-14 00:56:43.529336', 36, 160.00),
+(33, '2024-07-14 00:57:28.226418', '2024-07-14 00:57:28.226418', '2024-07-14 00:57:28.226418', 36, 160.00),
+(34, '2024-07-14 00:58:37.251487', '2024-07-14 00:58:37.251487', '2024-07-14 00:58:37.251487', 36, 160.00),
+(35, '2024-07-14 01:02:13.532996', '2024-07-14 01:02:13.532996', '2024-07-14 01:02:13.532996', 36, 10.00),
+(36, '2024-07-14 01:10:22.138219', '2024-07-14 01:10:22.138219', '2024-07-14 01:10:22.138219', 36, 40.00),
+(37, '2024-07-14 01:15:36.030264', '2024-07-14 01:15:36.030264', '2024-07-14 01:15:36.030264', 36, 66.00);
 
 -- --------------------------------------------------------
 
@@ -689,19 +700,8 @@ CREATE TABLE `core_pedido` (
 --
 
 INSERT INTO `core_pedido` (`id`, `fecha_pedido`, `estado`, `total`, `usuario_id`, `comprobante_transferencia`, `direccion_envio`, `numero_casa`, `region`) VALUES
-(6, '2024-07-06 04:59:30.819609', 'pendiente', 30.00, 36, 'core/img/comprobante/gohan2_em5VODp.jpg', NULL, NULL, NULL),
-(7, '2024-07-06 05:14:15.013307', 'aprobado', 60.00, 36, 'core/img/comprobante/lorea.jpg', NULL, NULL, NULL),
-(8, '2024-07-06 06:10:03.885655', 'pendiente', 100.00, 36, '', NULL, NULL, NULL),
-(9, '2024-07-06 06:10:57.509192', 'pendiente', 12.00, 36, '', NULL, NULL, NULL),
-(10, '2024-07-06 06:11:41.431589', 'aprobado', 90.00, 36, 'core/img/comprobante/portada_sousou-no-frieren-35_nek6mGW.jpg', NULL, NULL, NULL),
-(11, '2024-07-12 03:08:47.869703', 'pendiente', 100.00, 36, '', NULL, NULL, NULL),
-(12, '2024-07-12 03:23:37.053956', 'pendiente', 100.00, 36, '', NULL, NULL, NULL),
-(13, '2024-07-12 03:52:42.509511', 'pendiente', 12.00, 36, '', NULL, NULL, NULL),
-(14, '2024-07-12 04:02:25.561631', 'pendiente', 12.00, 36, '', '', '', ''),
-(15, '2024-07-12 04:23:05.892747', 'pendiente', 12.00, 36, '', '', '', ''),
-(16, '2024-07-12 04:34:02.748289', 'pendiente', 12.00, 36, '', '', '', ''),
-(17, '2024-07-12 04:39:00.868870', 'pendiente', 24.00, 36, '', '', '', ''),
-(18, '2024-07-13 00:29:40.930137', 'pendiente', 90.00, 36, '', NULL, NULL, NULL);
+(35, '2024-07-14 01:17:16.187557', 'Pendiente', 10.00, 37, 'core/img/comprobante/madera.jpg', NULL, NULL, NULL),
+(36, '2024-07-14 01:17:51.981068', 'Pendiente', 22.00, 37, 'core/img/comprobante/madera_x32QFp2.jpg', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -960,7 +960,8 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (39, 'core', '0015_auto_20240711_2302', '2024-07-12 03:02:21.828958'),
 (40, 'core', '0015_review', '2024-07-13 00:22:23.849501'),
 (41, 'core', '0016_delete_review', '2024-07-13 00:24:58.331399'),
-(42, 'core', '0017_review', '2024-07-13 00:30:00.695290');
+(42, 'core', '0017_review', '2024-07-13 00:30:00.695290'),
+(43, 'core', '0018_auto_20240713_2101', '2024-07-14 01:01:26.087864');
 
 -- --------------------------------------------------------
 
@@ -998,7 +999,8 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 ('jlo15jpjmnapetr7zv9mxjh9757v2o52', '.eJxVjMEOwiAQRP-FsyEQylI8evcbyHZ3kaqhSWlPjf9um_Sgx5n3ZjaVcF1KWpvMaWR1VQ7U5bcckF5SD8JPrI9J01SXeRz0oeiTNn2fWN630_07KNjKvkZvvedM2YAVAeociemAgzPkAHoyFvoQc2TJQCGyjxYsOgN5zy6qzxcNcjfy:1sS5dz:37aiNEojLciCRlE_dHe2gVmH2e2DtSgximuvZ4jr5ew', '2024-07-26 02:04:19.741878'),
 ('mtludh8fc23u6m3s8gcixrjlmuu1hpfi', '.eJxVjMEOwiAQRP-FsyGlCwt49O43ENhFqRpISnsy_rtt0oPeJvPezFuEuC4lrD3PYWJxFkqcfrsU6ZnrDvgR671JanWZpyR3RR60y2vj_Loc7t9Bib1sa4tsIXmMSRENqJWGNGhww-jZZUKlsmIATaM3uEVnbHY3SBGADJIVny_HRTc_:1sSQJo:j_d4RqfL-_nAlf8wCbWD4VqBIaoEg3TrEYxCdWH9omU', '2024-07-27 00:08:52.523155'),
 ('cuxmd3ec0htg83bdn3dtwx21ksc3nxzy', '.eJxVjMEOwiAQRP-FsyEQylI8evcbyHZ3kaqhSWlPjf9um_Sgx5n3ZjaVcF1KWpvMaWR1VQ7U5bcckF5SD8JPrI9J01SXeRz0oeiTNn2fWN630_07KNjKvkZvvedM2YAVAeociemAgzPkAHoyFvoQc2TJQCGyjxYsOgN5zy6qzxcNcjfy:1sSQcg:jDF4doiTjbyZ3ZnSjsRsxcsv1Z5JG9aZUg2QEXl5h7M', '2024-07-27 00:28:22.158009'),
-('5gcfbhzqqsy0rd5z5ynwvmxvr9150m6g', '.eJxVjMEOwiAQRP-FsyHIQqEevfsNhGUXqRqalPZk_Hdp0oNe5jDvzbxFiNtawtZ4CROJiwAnTr8lxvTkuhN6xHqfZZrrukwod0UetMnbTPy6Hu7fQYmt9LXNGhEJR4VsOHs7KKIRVErRG6M9254MzhvPSI5yJ4MCB-doLYAWny8rkTg2:1sSQn1:gGgNVKq3MIlTcyEIn5SuCqv2cZb3iMaUWw2YNK_wJVE', '2024-07-27 00:39:03.907217');
+('flzhslcjqchou7x0ukx5jls23bb2ijde', '.eJxVjMEOwiAQRP-FsyHIQqEevfsNhGUXqRqalPZk_Hdp0oNe5jDvzbxFiNtawtZ4CROJiwAnTr8lxvTkuhN6xHqfZZrrukwod0UetMnbTPy6Hu7fQYmt9LXNGhEJR4VsOHs7KKIRVErRG6M9254MzhvPSI5yJ4MCB-doLYAWny8rkTg2:1sSn11:sJnezvXyAkwTPpnECc3-dvXt-MwyoYBohBH1mcVbkKE', '2024-07-28 00:22:59.342663'),
+('wwv7t9w7xrrt1xgbel0taecbgwcin264', '.eJxVjMEOwiAQRP-FsyEQylI8evcbyHZ3kaqhSWlPjf9um_Sgx5n3ZjaVcF1KWpvMaWR1VQ7U5bcckF5SD8JPrI9J01SXeRz0oeiTNn2fWN630_07KNjKvkZvvedM2YAVAeociemAgzPkAHoyFvoQc2TJQCGyjxYsOgN5zy6qzxcNcjfy:1sSnSI:GRIJjQhzlpb8mjiOvPVQMsMM6pKZkcmM6VtFqxwoJIU', '2024-07-28 00:51:10.972384');
 
 --
 -- Índices para tablas volcadas
@@ -1236,31 +1238,31 @@ ALTER TABLE `auth_user_user_permissions`
 -- AUTO_INCREMENT de la tabla `core_carrocompras`
 --
 ALTER TABLE `core_carrocompras`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT de la tabla `core_carrocompras_items`
 --
 ALTER TABLE `core_carrocompras_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=266;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=296;
 
 --
 -- AUTO_INCREMENT de la tabla `core_carroitem`
 --
 ALTER TABLE `core_carroitem`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 
 --
 -- AUTO_INCREMENT de la tabla `core_compra`
 --
 ALTER TABLE `core_compra`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT de la tabla `core_compraitem`
 --
 ALTER TABLE `core_compraitem`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT de la tabla `core_entrega`
@@ -1290,7 +1292,7 @@ ALTER TABLE `core_pago`
 -- AUTO_INCREMENT de la tabla `core_pedido`
 --
 ALTER TABLE `core_pedido`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT de la tabla `core_producto`
@@ -1332,7 +1334,7 @@ ALTER TABLE `django_content_type`
 -- AUTO_INCREMENT de la tabla `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- Restricciones para tablas volcadas
