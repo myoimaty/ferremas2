@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-07-2024 a las 03:29:03
+-- Tiempo de generación: 14-07-2024 a las 06:02:11
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Versión de PHP: 8.1.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -405,7 +405,7 @@ INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `userna
 (33, 'pbkdf2_sha256$216000$TGq30fVCeb71$UY9ncbb4Plg2r2hyAsDQ4AfLSMghMR9c2t4CiLasWtw=', '2024-05-13 21:30:42.505979', 0, 'matias1', '', '', 'matiasquez01@gmail.com', 0, 1, '2024-05-13 21:30:29.201853'),
 (34, 'pbkdf2_sha256$216000$6clNxbPJdvAq$gcsYTOsL3MJQ6RffkhVLlhPBHPonxR8x3WdE2wO/KCM=', '2024-05-13 22:32:37.839209', 0, 'javier', '', '', 'julio@gmail.cl', 0, 1, '2024-05-13 21:36:08.769154'),
 (35, 'pbkdf2_sha256$216000$rRG6ZfjrB2RC$Eok8jot7sVi3BLIxvCIGa7swyC8ZtIzEalNiBnFcOSc=', '2024-05-13 23:14:50.258547', 0, 'mathias', '', '', 'matiasqueza1@gmail.com', 0, 1, '2024-05-13 23:14:29.574271'),
-(36, 'pbkdf2_sha256$216000$yzGIWOmfs4o8$gQThyUhWqwDPUSgCx+uusnyjO+O5DNAOeiVWEzkK8PM=', '2024-07-14 00:51:10.967382', 0, 'maty', '', '', 'mati.dominguez@duocuc.cl', 0, 1, '2024-05-22 23:34:07.307279'),
+(36, 'pbkdf2_sha256$216000$yzGIWOmfs4o8$gQThyUhWqwDPUSgCx+uusnyjO+O5DNAOeiVWEzkK8PM=', '2024-07-14 03:09:20.191809', 0, 'maty', '', '', 'mati.dominguez@duocuc.cl', 0, 1, '2024-05-22 23:34:07.307279'),
 (37, 'pbkdf2_sha256$216000$zmEzAa7XVAcg$OJLYpwdE+l7FRsJLypumv022mHTnvrvKS0iq48vkJtc=', '2024-07-14 00:22:59.328659', 0, 'javier1', '', '', 'javier@gmail.com', 0, 1, '2024-05-26 22:31:11.464753'),
 (38, 'pbkdf2_sha256$216000$HECIi4ZUW6Ta$7qVo0rINbWLdK3De6NUXXm9mSV8J2dV1xqXmSScd56I=', '2024-06-20 01:01:32.000000', 0, 'test', '', '', 'olapoto@mail.com', 0, 1, '2024-06-20 00:55:49.000000'),
 (39, 'pbkdf2_sha256$216000$W8eMfWszVqwj$R4gIu0bnJAKdhSXfKgAfr89vOXHlXdpiSTHVa/mJZuc=', NULL, 0, 'matiasss', '', '', 'quezadamatias269@gmail.com', 0, 1, '2024-07-13 01:08:54.002222');
@@ -477,8 +477,7 @@ CREATE TABLE `core_carrocompras` (
 
 INSERT INTO `core_carrocompras` (`id`, `created_at`, `updated_at`, `compra_id`, `usuario_id`) VALUES
 (5, '2024-05-13 21:39:52.449637', '2024-05-13 22:35:12.034467', NULL, 34),
-(14, '2024-05-26 23:28:09.280650', '2024-05-26 23:28:09.289165', NULL, 32),
-(50, '2024-07-14 01:15:53.962961', '2024-07-14 01:16:27.784337', NULL, 36);
+(14, '2024-05-26 23:28:09.280650', '2024-05-26 23:28:09.289165', NULL, 32);
 
 -- --------------------------------------------------------
 
@@ -498,8 +497,7 @@ CREATE TABLE `core_carrocompras_items` (
 
 INSERT INTO `core_carrocompras_items` (`id`, `carrocompras_id`, `carroitem_id`) VALUES
 (113, 5, 40),
-(172, 14, 67),
-(293, 50, 111);
+(172, 14, 67);
 
 -- --------------------------------------------------------
 
@@ -527,8 +525,6 @@ INSERT INTO `core_carroitem` (`id`, `cantidad`, `created_at`, `updated_at`, `usu
 (95, 2, '2024-07-13 01:22:24.573828', '2024-07-13 23:04:26.553823', 36, 'FER-00012'),
 (96, 1, '2024-07-13 23:11:02.632262', '2024-07-13 23:11:02.632262', 36, 'FER-00013'),
 (97, 1, '2024-07-13 23:45:34.813127', '2024-07-13 23:45:34.813127', 36, 'FER-00011'),
-(103, 3, '2024-07-14 01:02:39.116234', '2024-07-14 01:14:24.781394', 36, 'FER-45232'),
-(111, 1, '2024-07-14 01:16:27.776335', '2024-07-14 01:16:27.776335', 36, 'FER-82521'),
 (112, 1, '2024-07-14 01:17:00.586379', '2024-07-14 01:17:00.586379', 37, 'FER-12345'),
 (113, 1, '2024-07-14 01:17:40.671674', '2024-07-14 01:17:40.671674', 37, 'FER-82521');
 
@@ -589,7 +585,9 @@ INSERT INTO `core_compra` (`id`, `fecha`, `created_at`, `updated_at`, `usuario_i
 (34, '2024-07-14 00:58:37.251487', '2024-07-14 00:58:37.251487', '2024-07-14 00:58:37.251487', 36, 160.00),
 (35, '2024-07-14 01:02:13.532996', '2024-07-14 01:02:13.532996', '2024-07-14 01:02:13.532996', 36, 10.00),
 (36, '2024-07-14 01:10:22.138219', '2024-07-14 01:10:22.138219', '2024-07-14 01:10:22.138219', 36, 40.00),
-(37, '2024-07-14 01:15:36.030264', '2024-07-14 01:15:36.030264', '2024-07-14 01:15:36.030264', 36, 66.00);
+(37, '2024-07-14 01:15:36.030264', '2024-07-14 01:15:36.030264', '2024-07-14 01:15:36.030264', 36, 66.00),
+(38, '2024-07-14 03:10:02.460583', '2024-07-14 03:10:02.461583', '2024-07-14 03:10:02.461583', 36, 100.00),
+(39, '2024-07-14 03:38:54.659296', '2024-07-14 03:38:54.659296', '2024-07-14 03:38:54.659296', 36, 120.00);
 
 -- --------------------------------------------------------
 
@@ -700,8 +698,10 @@ CREATE TABLE `core_pedido` (
 --
 
 INSERT INTO `core_pedido` (`id`, `fecha_pedido`, `estado`, `total`, `usuario_id`, `comprobante_transferencia`, `direccion_envio`, `numero_casa`, `region`) VALUES
-(35, '2024-07-14 01:17:16.187557', 'Pendiente', 10.00, 37, 'core/img/comprobante/madera.jpg', NULL, NULL, NULL),
-(36, '2024-07-14 01:17:51.981068', 'Pendiente', 22.00, 37, 'core/img/comprobante/madera_x32QFp2.jpg', NULL, NULL, NULL);
+(35, '2024-07-14 01:17:16.187557', 'entregado', 10.00, 37, 'core/img/comprobante/madera.jpg', NULL, NULL, NULL),
+(36, '2024-07-14 01:17:51.981068', 'completado', 22.00, 37, 'core/img/comprobante/madera_x32QFp2.jpg', NULL, NULL, NULL),
+(37, '2024-07-14 03:10:02.463582', 'completado', 100.00, 36, '', NULL, NULL, NULL),
+(38, '2024-07-14 03:38:54.660304', 'en_proceso', 120.00, 36, '', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -732,21 +732,6 @@ INSERT INTO `core_producto` (`id`, `nombre`, `precio`, `stock`, `descripcion`, `
 (11, 'correa para perro', 2990, 986, 'correa para perro celeste', 'Correaaaa_6rhILjn_uml8XBQ_cqirwX8.jpg', '2023-07-11 02:32:41.910777', '2023-07-11 20:18:16.515703', 2),
 (12, 'identificador para perro', 2990, 1981, 'identificador para perro', 'Identificador_morado_xDZdKkP_RZuZUTF_dK2tYkI.webp', '2023-07-11 19:29:02.359958', '2023-07-11 20:06:32.001881', 2),
 (13, 'juguete para perro', 1990, 867, 'juguete para perro', 'pelotascolores_5THCb5j.png', '2023-07-11 19:29:34.504645', '2023-07-11 20:18:22.683145', 3);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `core_review`
---
-
-CREATE TABLE `core_review` (
-  `id` int(11) NOT NULL,
-  `producto_id` varchar(20) NOT NULL,
-  `comentario` longtext NOT NULL,
-  `calificacion` int(11) NOT NULL,
-  `fecha_creacion` datetime(6) NOT NULL,
-  `usuario_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -961,7 +946,9 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (40, 'core', '0015_review', '2024-07-13 00:22:23.849501'),
 (41, 'core', '0016_delete_review', '2024-07-13 00:24:58.331399'),
 (42, 'core', '0017_review', '2024-07-13 00:30:00.695290'),
-(43, 'core', '0018_auto_20240713_2101', '2024-07-14 01:01:26.087864');
+(43, 'core', '0018_auto_20240713_2101', '2024-07-14 01:01:26.087864'),
+(44, 'core', '0019_auto_20240713_2323', '2024-07-14 03:23:45.204668'),
+(45, 'core', '0020_auto_20240713_2333', '2024-07-14 03:34:02.915121');
 
 -- --------------------------------------------------------
 
@@ -1000,7 +987,8 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 ('mtludh8fc23u6m3s8gcixrjlmuu1hpfi', '.eJxVjMEOwiAQRP-FsyGlCwt49O43ENhFqRpISnsy_rtt0oPeJvPezFuEuC4lrD3PYWJxFkqcfrsU6ZnrDvgR671JanWZpyR3RR60y2vj_Loc7t9Bib1sa4tsIXmMSRENqJWGNGhww-jZZUKlsmIATaM3uEVnbHY3SBGADJIVny_HRTc_:1sSQJo:j_d4RqfL-_nAlf8wCbWD4VqBIaoEg3TrEYxCdWH9omU', '2024-07-27 00:08:52.523155'),
 ('cuxmd3ec0htg83bdn3dtwx21ksc3nxzy', '.eJxVjMEOwiAQRP-FsyEQylI8evcbyHZ3kaqhSWlPjf9um_Sgx5n3ZjaVcF1KWpvMaWR1VQ7U5bcckF5SD8JPrI9J01SXeRz0oeiTNn2fWN630_07KNjKvkZvvedM2YAVAeociemAgzPkAHoyFvoQc2TJQCGyjxYsOgN5zy6qzxcNcjfy:1sSQcg:jDF4doiTjbyZ3ZnSjsRsxcsv1Z5JG9aZUg2QEXl5h7M', '2024-07-27 00:28:22.158009'),
 ('flzhslcjqchou7x0ukx5jls23bb2ijde', '.eJxVjMEOwiAQRP-FsyHIQqEevfsNhGUXqRqalPZk_Hdp0oNe5jDvzbxFiNtawtZ4CROJiwAnTr8lxvTkuhN6xHqfZZrrukwod0UetMnbTPy6Hu7fQYmt9LXNGhEJR4VsOHs7KKIRVErRG6M9254MzhvPSI5yJ4MCB-doLYAWny8rkTg2:1sSn11:sJnezvXyAkwTPpnECc3-dvXt-MwyoYBohBH1mcVbkKE', '2024-07-28 00:22:59.342663'),
-('wwv7t9w7xrrt1xgbel0taecbgwcin264', '.eJxVjMEOwiAQRP-FsyEQylI8evcbyHZ3kaqhSWlPjf9um_Sgx5n3ZjaVcF1KWpvMaWR1VQ7U5bcckF5SD8JPrI9J01SXeRz0oeiTNn2fWN630_07KNjKvkZvvedM2YAVAeociemAgzPkAHoyFvoQc2TJQCGyjxYsOgN5zy6qzxcNcjfy:1sSnSI:GRIJjQhzlpb8mjiOvPVQMsMM6pKZkcmM6VtFqxwoJIU', '2024-07-28 00:51:10.972384');
+('wwv7t9w7xrrt1xgbel0taecbgwcin264', '.eJxVjMEOwiAQRP-FsyEQylI8evcbyHZ3kaqhSWlPjf9um_Sgx5n3ZjaVcF1KWpvMaWR1VQ7U5bcckF5SD8JPrI9J01SXeRz0oeiTNn2fWN630_07KNjKvkZvvedM2YAVAeociemAgzPkAHoyFvoQc2TJQCGyjxYsOgN5zy6qzxcNcjfy:1sSnSI:GRIJjQhzlpb8mjiOvPVQMsMM6pKZkcmM6VtFqxwoJIU', '2024-07-28 00:51:10.972384'),
+('7kao8773d6icobxl6qupgx2a6c491m8v', '.eJxVjMEOwiAQRP-FsyEQylI8evcbyHZ3kaqhSWlPjf9um_Sgx5n3ZjaVcF1KWpvMaWR1VQ7U5bcckF5SD8JPrI9J01SXeRz0oeiTNn2fWN630_07KNjKvkZvvedM2YAVAeociemAgzPkAHoyFvoQc2TJQCGyjxYsOgN5zy6qzxcNcjfy:1sSpc0:EVewuRejcyT-i-mo3kBg9WLf10hC-HcAlV-aUsW4l5Y', '2024-07-28 03:09:20.194323');
 
 --
 -- Índices para tablas volcadas
@@ -1148,13 +1136,6 @@ ALTER TABLE `core_producto`
   ADD KEY `core_producto_tipo_id_e0e92ad1_fk_core_tipoproducto_id` (`tipo_id`);
 
 --
--- Indices de la tabla `core_review`
---
-ALTER TABLE `core_review`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `core_review_usuario_id_eac8b833_fk_auth_user_id` (`usuario_id`);
-
---
 -- Indices de la tabla `core_subscrito`
 --
 ALTER TABLE `core_subscrito`
@@ -1238,31 +1219,31 @@ ALTER TABLE `auth_user_user_permissions`
 -- AUTO_INCREMENT de la tabla `core_carrocompras`
 --
 ALTER TABLE `core_carrocompras`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT de la tabla `core_carrocompras_items`
 --
 ALTER TABLE `core_carrocompras_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=296;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=298;
 
 --
 -- AUTO_INCREMENT de la tabla `core_carroitem`
 --
 ALTER TABLE `core_carroitem`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
 -- AUTO_INCREMENT de la tabla `core_compra`
 --
 ALTER TABLE `core_compra`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT de la tabla `core_compraitem`
 --
 ALTER TABLE `core_compraitem`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de la tabla `core_entrega`
@@ -1292,19 +1273,13 @@ ALTER TABLE `core_pago`
 -- AUTO_INCREMENT de la tabla `core_pedido`
 --
 ALTER TABLE `core_pedido`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT de la tabla `core_producto`
 --
 ALTER TABLE `core_producto`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT de la tabla `core_review`
---
-ALTER TABLE `core_review`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `core_subscrito`
@@ -1334,7 +1309,7 @@ ALTER TABLE `django_content_type`
 -- AUTO_INCREMENT de la tabla `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- Restricciones para tablas volcadas
@@ -1444,12 +1419,6 @@ ALTER TABLE `core_pedido`
 --
 ALTER TABLE `core_producto`
   ADD CONSTRAINT `core_producto_tipo_id_e0e92ad1_fk_core_tipoproducto_id` FOREIGN KEY (`tipo_id`) REFERENCES `core_tipoproducto` (`id`);
-
---
--- Filtros para la tabla `core_review`
---
-ALTER TABLE `core_review`
-  ADD CONSTRAINT `core_review_usuario_id_eac8b833_fk_auth_user_id` FOREIGN KEY (`usuario_id`) REFERENCES `auth_user` (`id`);
 
 --
 -- Filtros para la tabla `core_subscrito`

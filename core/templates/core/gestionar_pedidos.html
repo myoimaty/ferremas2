@@ -28,10 +28,9 @@
                     <form action="{% url 'actualizar_pedido' pedido.id %}" method="post" style="display: inline;">
                         {% csrf_token %}
                         <select name="estado" class="form-control">
-                            <option value="pendiente" {% if pedido.estado == 'pendiente' %}selected{% endif %}>Pendiente</option>
                             <option value="en_proceso" {% if pedido.estado == 'en_proceso' %}selected{% endif %}>En proceso</option>
-                            <option value="completado" {% if pedido.estado == 'completado' %}selected{% endif %}>Completado</option>
                             <option value="cancelado" {% if pedido.estado == 'cancelado' %}selected{% endif %}>Cancelado</option>
+                            <option value="enviado" {% if pedido.estado == 'enviado' %}selected{% endif %}>Enviado</option>
                         </select>
                         <button type="submit" class="btn btn-primary">Actualizar</button>
                     </form>

@@ -27,6 +27,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from openpyxl import Workbook
 from datetime import datetime
+from django.db.models import Q
 
 
 #LOGICAS API
@@ -911,12 +912,10 @@ def productos_bodega(request):
 @login_required
 @user_passes_test(lambda u: u.groups.filter(name='vendedor').exists())
 def gestionar_pedidos(request):
-    # Obtener todos los pedidos ordenados por fecha de pedido descendente
-    pedidos = Pedido.objects.all().order_by('-fecha_pedido')
-    
-    # Si solo quieres los pedidos relacionados con el usuario logueado como vendedor,
-    # puedes ajustar el filtro según la lógica de tu aplicación. Por ejemplo:
-    # pedidos = Pedido.objects.filter(vendedor=request.user).order_by('-fecha_pedido')
+    # Filtrar los pedidos con estado "aprobado", "en_proceso", o "enviado"
+    pedidos = Pedido.objects.filter(
+        Q(estado='aprobado') | Q(estado='en_proceso') 
+    ).order_by('-fecha_pedido')
     
     return render(request, 'core/gestionar_pedidos.html', {'pedidos': pedidos})
 
@@ -948,9 +947,10 @@ def confirmar_pagos(request):
 @login_required
 @user_passes_test(lambda u: u.groups.filter(name='contador').exists())
 def registrar_entregas(request):
-    entregas = Entrega.objects.all()
-    return render(request, 'core/registrar_entregas.html', {'entregas': entregas})
-
+    # Obtener todos los pedidos con estado 'enviado' ordenados por fecha de pedido descendente
+    pedidos = Pedido.objects.filter(estado='Enviado').order_by('-fecha_pedido')
+    
+    return render(request, 'core/registrar_entregas.html', {'pedidos': pedidos})
 # Agregar un manejo de excepciones para mostrar un mensaje de error y redirigir al index
 def permission_denied_view(request):
     messages.error(request, "No tienes permiso para acceder a esta página.")
@@ -1005,6 +1005,23 @@ def actualizar_pedido(request, pedido_id):
         else:
             messages.error(request, "Estado no válido.")
     return redirect('gestionar_pedidos')
+
+
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name='vendedor').exists())
+def actualizar_entrega(request, pedido_id):
+    try:
+        pedido = Pedido.objects.get(id=pedido_id)
+        if pedido.estado == 'enviado':
+            pedido.estado = 'entregado'
+            pedido.save()
+            messages.success(request, "El pedido ha sido marcado como entregado correctamente.")
+        else:
+            messages.error(request, "Solo se pueden marcar como entregados los pedidos en estado 'enviado'.")
+    except Pedido.DoesNotExist:
+        messages.error(request, "El pedido no existe.")
+    
+    return redirect('registrar_entregas')
 
 def ordenar_pedidos(request):
     if request.method == 'POST':

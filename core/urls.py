@@ -70,6 +70,7 @@ urlpatterns = [
     path('productos_bodega/', productos_bodega, name='productos_bodega'),
     path('gestionar_pedidos/', gestionar_pedidos, name='gestionar_pedidos'),
     path('actualizar_pedido/<int:pedido_id>/', actualizar_pedido, name='actualizar_pedido'),
+    path('actualizar_entrega/<int:pedido_id>/', actualizar_entrega, name='actualizar_entrega'),
     path('ordenes_pedidos/', ordenes_pedidos, name='ordenes_pedidos'),
     path('preparar_pedidos/', preparar_pedidos, name='preparar_pedidos'),
     path('ordenar_pedidos/', ordenar_pedidos, name='ordenar_pedidos'),

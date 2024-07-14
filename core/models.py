@@ -92,16 +92,17 @@ class CarroCompras(models.Model):
 class Pedido(models.Model):
     ESTADO_CHOICES = [
         ('pendiente', 'Pendiente'),
-        ('aprobado', 'aprobado'),
+        ('aprobado', 'Aprobado'),
         ('en_proceso', 'En proceso'),
         ('completado', 'Completado'),
         ('cancelado', 'Cancelado'),
+        ('enviado', 'Enviado'),
+        ('entregado', 'Entregado'),
     ]
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     fecha_pedido = models.DateTimeField(auto_now_add=True)
     estado = models.CharField(max_length=20, choices=ESTADO_CHOICES, default='pendiente')
     total = models.DecimalField(max_digits=10, decimal_places=2)
-    # Campo para comprobante de transferencia bancaria (opcional)
     comprobante_transferencia = models.ImageField(upload_to='core/img/comprobante/', blank=True, null=True)
 
     def __str__(self):
